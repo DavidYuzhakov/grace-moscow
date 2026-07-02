@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: gracedb_container
+    restart: always
+    environment:
+      POSTGRES_DB: gracedb
+      POSTGRES_USER: grace
+      POSTGRES_PASSWORD: grace_26052026
+    ports:
+      - '5433:5432'
+    volumes:
+      - gracedb_volume_data:/var/lib/postgresql/18/docker
+
+volumes:
+  gracedb_volume_data:

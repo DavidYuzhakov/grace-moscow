@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #f7f7f7;
+  --foreground: #171717;
+  --primary: #29529f;
+  --secondary: #6b8ebf;
+  --tertiary: #e0e7ff;
+  --accent: #1e293b;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-tertiary: var(--tertiary);
+  --color-foreground: var(--foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  font-size: 16px;
+}
+
+.container {
+  max-width: 1300px;
+  padding: 0 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.divider {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--foreground);
+  opacity: 0.1;
+}
+
+.slogan {
+  font-family: var(--font-greatVibes);
+  font-size: 32px;
+}

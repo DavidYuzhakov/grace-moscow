@@ -1,0 +1,83 @@
+import {
+  IconBrandWhatsappFilled,
+  IconBrandYoutubeFilled,
+} from '@tabler/icons-react'
+import Image from 'next/image'
+
+export function Footer() {
+  return (
+    <div className="container">
+      <div className="bg-primary text-white p-8 pb-4 mb-2.5 rounded-xl">
+        <div className="flex items-start justify-between">
+          <div className="flex gap-8 items-start">
+            <Image
+              src={'/logo-white.png'}
+              width={130}
+              height={50}
+              className=""
+              alt="Логотип"
+            />
+            <div className="max-w-100 text-sm space-y-2">
+              <p>
+                &quot;Благодать&quot; - это церковь миссии &quot;Благодать&quot;
+                <br />
+                на севере Москвы.
+              </p>
+              <p className="text-[12px] text-white/70">
+                * Религиозная группа &quot;Благодать&quot;, ведомственный
+                регистрационный номер Р.Г. - 7718010198
+              </p>
+            </div>
+          </div>
+          <div>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://www.youtube.com/@grace.church.moscow"
+                className="flex items-center gap-1 bg-secondary/50 p-3 rounded-full hover:rotate-15 duration-200"
+              >
+                <IconBrandYoutubeFilled size={25} />
+              </a>
+              <a
+                href="https://vkvideo.ru/@grace.moscow"
+                className="flex items-center gap-1 p-3 rounded-full bg-secondary/50 hover:rotate-15 duration-200"
+              >
+                <Image
+                  width={25}
+                  height={40}
+                  src={'/vkvideo.svg'}
+                  alt="VK Video"
+                />
+              </a>
+              <a
+                href="https://vk.com/grace.moscow"
+                className="flex items-center gap-1 p-3 rounded-full bg-secondary/50 hover:rotate-15 duration-200"
+              >
+                <Image width={25} height={40} src={'/vk.svg'} alt="вконтакте" />
+              </a>
+              <a
+                href="https://t.me/grace_church_msk"
+                className="flex items-center gap-1 p-3 rounded-full bg-secondary/50 hover:rotate-15 duration-200"
+              >
+                <Image
+                  width={25}
+                  height={25}
+                  src={'/telegram.svg'}
+                  alt="Telegram"
+                />
+              </a>
+              <a
+                href="https://wa.me/9165998103"
+                className="flex items-center gap-1 bg-secondary/50 p-3 rounded-full hover:rotate-15 duration-200"
+              >
+                <IconBrandWhatsappFilled size={25} />
+              </a>
+            </div>
+          </div>
+        </div>
+        <p className="text-center border-t border-white/30 pt-4 mt-6 text-white/80">
+          © 2026 Благодать север. Все права защищены.
+        </p>
+      </div>
+    </div>
+  )
+}
