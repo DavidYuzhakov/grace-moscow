@@ -2,22 +2,37 @@ import { api } from '@/lib/api'
 import { News } from '@/types/News'
 
 type Response<T> = { data: T }
+type Result<T> = { ok: true; data: T } | { ok: false; error: string }
 
 export const newsService = {
-  getAllNews: async () => {
-    const { data } = await api.get<Response<News[]>>('/news', {
-      params: {
-        populate: '*',
-      },
-    })
-    console.log(data)
-    return data
+  getAllNews: async (): Promise<Result<News[]>> => {
+    try {
+      const { data } = await api.get<Response<News[]>>('/news', {
+        params: {
+          populate: '*',
+        },
+      })
+      return { data, ok: true }
+    } catch (error) {
+      console.error(error)
+      return {
+        ok: false,
+        error: 'Не удалось загрузить новости. Попробуйте позже',
+      }
+    }
   },
-  getOneNews: async (slug: string) => {
-    const { data } = await api.get<Response<News[]>>('/news', {
-      params: { 'filters[slug][$eq]': slug, populate: '*' },
-    })
-    console.log(data)
-    return data[0]
+  getNewsBySlug: async (slug: string): Promise<Result<News>> => {
+    try {
+      const { data } = await api.get<Response<News[]>>('/news', {
+        params: { 'filters[slug][$eq]': slug, populate: '*' },
+      })
+      return { data: data[0], ok: true }
+    } catch (error) {
+      console.error(error)
+      return {
+        ok: false,
+        error: 'Не удалось загрузить эту новость. Попробуйте позже',
+      }
+    }
   },
 }

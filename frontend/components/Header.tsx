@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { Button } from './Button'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { IconLogin2 } from '@tabler/icons-react'

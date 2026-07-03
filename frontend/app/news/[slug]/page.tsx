@@ -3,7 +3,16 @@ import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
-import { IconPhoneCall } from '@tabler/icons-react'
+import {
+  IconCalendarEvent,
+  IconClock,
+  IconMapPin,
+  IconPhoneCall,
+} from '@tabler/icons-react'
+import { notFound } from 'next/navigation'
+import { ErrorState } from '@/components/ErrorState'
+import { Button } from '@/components/Button'
+import { Tag } from '@/components/Tag'
 
 type NewsDetailsProps = {
   params: Promise<{ slug: string }>
@@ -11,10 +20,21 @@ type NewsDetailsProps = {
 
 export default async function NewsDetailsPage({ params }: NewsDetailsProps) {
   const { slug } = await params
-  const { img, title, description, phone, telegramLink } =
-    await newsService.getOneNews(slug)
+  const result = await newsService.getNewsBySlug(slug)
+
+  if (!result.ok) {
+    return <ErrorState error={result.error} />
+  }
+
+  if (!result.data) {
+    notFound()
+  }
+
+  const { title, img, description, phone, telegramLink, address, date, time } =
+    result.data
+
   return (
-    <article className="mt-22 pb-10">
+    <article>
       <Image
         src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${img.url}`}
         alt={title}
@@ -23,7 +43,21 @@ export default async function NewsDetailsPage({ params }: NewsDetailsProps) {
         sizes="100vw"
         className="z-1 h-auto w-full rounded-3xl text-black"
       />
-      <div className="space-y-8 p-4">
+      <div className="space-y-6 p-4">
+        <div className="flex items-center gap-3">
+          <Tag>
+            <IconCalendarEvent />
+            {date}
+          </Tag>
+          <Tag>
+            <IconClock />
+            {time.slice(0, 5)}
+          </Tag>
+          <Tag>
+            <IconMapPin />
+            {address}
+          </Tag>
+        </div>
         <h2 className="title">{title}</h2>
         <div className="prose border-b-foreground/10">
           <ReactMarkdown
@@ -35,27 +69,40 @@ export default async function NewsDetailsPage({ params }: NewsDetailsProps) {
         </div>
         <div className="divider" />
         <div className="text-center">
-          <h4 className="font-bold mb-6 text-[26px]">Контакты для связи</h4>
+          <h4 className="font-medium mb-5 text-3xl">Контакты для связи</h4>
           <div className="flex gap-2 items-center mx-auto w-fit">
-            <a
-              href={`tel:${phone}`}
-              className="flex items-center justify-center gap-2 bg-foreground rounded-full py-3 px-6 w-fit text-white font-medium"
-            >
-              Позвонить
-              <IconPhoneCall size={23} />
-            </a>
-            <a
-              href={telegramLink}
-              className="flex items-center justify-center gap-2 bg-foreground rounded-full py-3 px-6 w-fit text-white font-medium"
-            >
-              Написать
-              <Image
-                width={23}
-                height={23}
-                src={'/telegram.svg'}
-                alt="telegram"
-              />
-            </a>
+            <Button variant="secondary">
+              <a
+                href={`tel:${phone}`}
+                className="flex items-center justify-center gap-2"
+              >
+                Позвонить
+                <IconPhoneCall size={23} />
+              </a>
+            </Button>
+            <Button variant="secondary">
+              <a
+                href={telegramLink}
+                className="flex items-center justify-center gap-2"
+              >
+                Написать
+                <svg
+                  className="size-5.75 group-hover:text-foreground duration-200"
+                  xmlns="http://www.w3.org/2000/svg"
+                  shapeRendering="geometricPrecision"
+                  textRendering="geometricPrecision"
+                  imageRendering="optimizeQuality"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M512 256C512 114.62 397.38 0 256 0S0 114.62 0 256s114.62 256 256 256 256-114.62 256-256zm-396.12-2.7c74.63-32.52 124.39-53.95 149.29-64.31 71.1-29.57 85.87-34.71 95.5-34.88 2.12-.03 6.85.49 9.92 2.98 2.59 2.1 3.3 4.94 3.64 6.93.34 2 .77 6.53.43 10.08-3.85 40.48-20.52 138.71-29 184.05-3.59 19.19-10.66 25.62-17.5 26.25-14.86 1.37-26.15-9.83-40.55-19.27-22.53-14.76-35.26-23.96-57.13-38.37-25.28-16.66-8.89-25.81 5.51-40.77 3.77-3.92 69.27-63.5 70.54-68.9.16-.68.31-3.2-1.19-4.53s-3.71-.87-5.3-.51c-2.26.51-38.25 24.3-107.98 71.37-10.22 7.02-19.48 10.43-27.77 10.26-9.14-.2-26.72-5.17-39.79-9.42-16.03-5.21-28.77-7.97-27.66-16.82.57-4.61 6.92-9.32 19.04-14.14z"
+                  />
+                </svg>
+              </a>
+            </Button>
           </div>
         </div>
       </div>

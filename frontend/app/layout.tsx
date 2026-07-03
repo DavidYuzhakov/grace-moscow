@@ -31,15 +31,16 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${greatVibes.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Header />
-        <main className="flex-1 container">{children}</main>
-        <Footer />
-
+      <head>
         <Script
           src={`https://api-maps.yandex.ru/v3/?apikey=${process.env.NEXT_PUBLIC_YANDEX_API_KEY}&lang=ru_RU`}
-          strategy="beforeInteractive"
+          strategy="lazyOnload"
         />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        <main className="flex-1 container pt-24 pb-20">{children}</main>
+        <Footer />
       </body>
     </html>
   )

@@ -5,12 +5,15 @@ import Link from 'next/link'
 import { Button } from '@/components/Button'
 import { AboutBlock } from '@/components/AboutBlock'
 import { newsService } from '@/services/news.service'
+import { ErrorState } from '@/components/ErrorState'
 
 export default async function HomePage() {
-  const news = await newsService.getAllNews()
+  const result = await newsService.getAllNews()
+  const news = result.ok ? result.data : []
+
   return (
-    <>
-      <section className="h-170">
+    <div className="-mt-24">
+      <section className="h-170 ">
         <Image
           width={0}
           height={0}
@@ -49,17 +52,25 @@ export default async function HomePage() {
           <Button className="mx-auto">Подробнее о нас</Button>
         </Link>
       </section>
-      <section className="pb-20 space-y-6">
+      <section className="space-y-6">
         <h2 className="font-medium text-4xl">Новости</h2>
-        <div className="gap-5 grid grid-cols-3">
-          {news.length === 0 && <p>Новостей нет</p>}
-          {news.map((news) => (
-            <NewsCard key={news.id} {...news} />
-          ))}
-        </div>
-        <Link href={'/news'} className="flex">
-          <Button className="mx-auto">Больше новостей</Button>
-        </Link>
+        {!result.ok ? (
+          <ErrorState error={result.error} />
+        ) : (
+          <>
+            <div className="gap-5 grid grid-cols-3">
+              {news.length === 0 && <p>Новостей нет</p>}
+              {news.slice(0, 3).map((news) => (
+                <NewsCard key={news.id} {...news} />
+              ))}
+            </div>
+            {news.length > 3 && (
+              <Link href={'/news'} className="flex">
+                <Button className="mx-auto">Больше новостей</Button>
+              </Link>
+            )}
+          </>
+        )}
       </section>
       {/* <section className="pb-20 bg-tertiary">
         <div className="container">
@@ -69,6 +80,6 @@ export default async function HomePage() {
           <div className="gap-5 grid grid-cols-3"></div>
         </div>
       </section> */}
-    </>
+    </div>
   )
 }

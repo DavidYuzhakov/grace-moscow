@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function AboutPage() {
   return (
-    <section className="space-y-16 pb-10">
+    <section className="space-y-16 -mt-24">
       <div className="h-150 pb-40">
         <Image
           width={1000000}
@@ -24,7 +24,7 @@ export default function AboutPage() {
           <h3 className="text-primary mb-6 font-bold uppercase tracking-wider">
             Апостольский Символ Веры
           </h3>
-          <blockquote className=" text-black/80 leading-relaxed italic">
+          <blockquote className=" text-black/70 leading-relaxed italic">
             &ldquo;Верую в Бога, Отца Всемогущего, Творца неба и земли. Верую в
             Иисуса Христа, Единородного Сына Божьего и Господа нашего, Который
             был зачат от Святого Духа, рождён от Девы Марии и пострадал при

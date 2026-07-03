@@ -74,8 +74,8 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <p className="text-center border-t border-white/30 pt-4 mt-6 text-white/80">
-          © 2026 Благодать север. Все права защищены.
+        <p className="text-center text-sm border-t border-white/30 pt-4 mt-6 text-white/80">
+          © 2026 Церковь Благодать Москва. Все права защищены.
         </p>
       </div>
     </div>

@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  IconCalendarEvent,
-  IconClock,
-  IconMapPin,
-  IconPhoneCall,
-} from '@tabler/icons-react'
+import { IconCalendarEvent, IconClock, IconMapPin } from '@tabler/icons-react'
 import Image from 'next/image'
 import { News } from '@/types/News'
 import ReactMarkdown from 'react-markdown'

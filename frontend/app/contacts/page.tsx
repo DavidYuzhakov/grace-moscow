@@ -1,4 +1,5 @@
 import Map from '@/components/Map'
+import { Tag } from '@/components/Tag'
 import {
   IconBrandWhatsappFilled,
   IconBrandYoutubeFilled,
@@ -9,12 +10,13 @@ import {
   IconPhoneCall,
 } from '@tabler/icons-react'
 import Image from 'next/image'
+import Script from 'next/script'
 
 export default function ContactsPage() {
   return (
-    <section className="mt-24 pb-10 space-y-8">
+    <section className="space-y-8">
       <div className="text-center py-10">
-        <h2 className="title mb-2">Контакты</h2>
+        <h2 className="font-bold mb-2 text-5xl">Контакты</h2>
         <p className="text-foreground/70">
           Мы всегда рады видеть вас. Присоединяйтесь к нашим служениям <br />{' '}
           или свяжитесь с нами любым удобным способом.
@@ -98,23 +100,25 @@ export default function ContactsPage() {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <div className="bg-white shadow-md rounded-full size-10 flex items-center justify-center">
+        <div className="bg-white shadow-sm rounded-full size-10 flex items-center justify-center">
           <IconMapPin />
         </div>
         <h3 className="text-2xl font-medium">Где мы находимся</h3>
       </div>
       <div className="flex gap-4">
-        <div className="flex items-center gap-2 text-lg bg-white shadow-md rounded-full px-4 py-1">
+        <Tag>
           <Image width={25} height={25} src={'/metro.svg'} alt="Метро" />
           Коптево
-        </div>
-        <a
-          href="https://yandex.ru/maps/213/moscow/?ll=37.523571%2C55.837463&mode=poi&poi%5Bpoint%5D=37.523460%2C55.837439&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D208449406853&z=20.33"
-          className="flex items-center gap-2 text-lg bg-white shadow-md rounded-full px-4 py-1 hover:underline"
-        >
-          <IconMap />
-          Коптевская улица 30А, 2 этаж
-        </a>
+        </Tag>
+        <Tag>
+          <a
+            href="https://yandex.ru/maps/213/moscow/?ll=37.523571%2C55.837463&mode=poi&poi%5Bpoint%5D=37.523460%2C55.837439&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D208449406853&z=20.33"
+            className="flex items-center gap-2 hover:underline"
+          >
+            <IconMap />
+            Коптевская улица 30А, 2 этаж
+          </a>
+        </Tag>
       </div>
       <div className="w-full h-80">
         <Map />

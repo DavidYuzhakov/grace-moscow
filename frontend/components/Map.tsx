@@ -1,9 +1,5 @@
 'use client'
-import {
-  IconCrossFilled,
-  IconMapPin,
-  IconMapPinFilled,
-} from '@tabler/icons-react'
+import { IconMapPinFilled } from '@tabler/icons-react'
 import { reactify } from '@yandex/ymaps3-types/reactify'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
