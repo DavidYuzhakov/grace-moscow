@@ -1,19 +1,26 @@
+import { twMerge } from 'tailwind-merge'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
+
 export function Button({
   children,
   className,
   variant = 'primary',
   ...arg
 }: Readonly<
-  {
-    children: React.ReactNode
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    children: ReactNode
     className?: string
-  } & { variant?: 'secondary' | 'primary' }
+    variant?: 'secondary' | 'primary' | 'outline' | 'ghost'
+  }
 >) {
   return (
     <button
-      {...arg}
-      className={`hover:bg-transparent hover:outline-1 ${variant === 'secondary' ? 'bg-foreground hover:border-foreground hover:text-foreground' : 'bg-primary hover:border-primary hover:text-primary'} duration-200 cursor-pointer text-white rounded-full py-2 px-6 group ${className}`}
+      className={twMerge(
+        `hover:bg-transparent hover:outline-1 py-2 px-6 ${variant === 'secondary' ? 'bg-foreground hover:border-foreground hover:text-foreground text-white' : variant === 'outline' ? 'outline outline-foreground text-foreground' : variant === 'ghost' ? 'py-0 px-0 hover:outline-none' : 'bg-primary hover:border-primary hover:text-primary text-white'} duration-200 cursor-pointer rounded-full group disabled:opacity-70 disabled:pointer-events-none`,
+        className,
+      )}
       type="button"
+      {...arg}
     >
       {children}
     </button>

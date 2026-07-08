@@ -32,7 +32,7 @@ export default function YandexMap() {
       <YMapDefaultSchemeLayer />
       <YMapDefaultFeaturesLayer />
       <YMapMarker coordinates={[37.523453, 55.837437]}>
-        <IconMapPinFilled className="-translate-1/2 text-blue-600" size={35} />
+        <IconMapPinFilled className="-translate-1/2 text-blue-600" size={30} />
       </YMapMarker>
     </YMap>
   )

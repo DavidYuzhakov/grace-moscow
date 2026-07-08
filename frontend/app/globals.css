@@ -10,6 +10,11 @@
   --accent: #1e293b;
 }
 
+input {
+  outline: none;
+  font-family: inherit;
+}
+
 @theme {
   --color-background: var(--background);
   --color-primary: var(--primary);

@@ -9,9 +9,7 @@ export default function NotFound() {
       </div>
       <h2 className="text-3xl font-bold tracking-wider">Такой страницы нет</h2>
       <p className="text-black/50 mt-4 mb-6">
-        Вера - осуществление ожидаемого и уверенность в невидимом, но не в этом
-        случае. <br />
-        Такой страницы действительно не существует.
+        Возможно, вы ввели неверный URL либо эту страницу перенесли или удалили
       </p>
 
       <Link href={'/'}>

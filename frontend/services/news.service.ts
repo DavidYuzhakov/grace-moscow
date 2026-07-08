@@ -1,8 +1,5 @@
-import { api } from '@/lib/api'
-import { News } from '@/types/News'
-
-type Response<T> = { data: T }
-type Result<T> = { ok: true; data: T } | { ok: false; error: string }
+import { api, Response, Result } from '@/lib/api'
+import { News } from '@/models/News'
 
 export const newsService = {
   getAllNews: async (): Promise<Result<News[]>> => {

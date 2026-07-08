@@ -10,7 +10,6 @@ import {
   IconPhoneCall,
 } from '@tabler/icons-react'
 import Image from 'next/image'
-import Script from 'next/script'
 
 export default function ContactsPage() {
   return (

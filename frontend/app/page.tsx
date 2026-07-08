@@ -1,6 +1,5 @@
 import NewsCard from '@/components/NewsCard'
 import { IconExternalLink } from '@tabler/icons-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/Button'
 import { AboutBlock } from '@/components/AboutBlock'
@@ -14,23 +13,23 @@ export default async function HomePage() {
   return (
     <div className="-mt-24">
       <section className="h-170 ">
-        <Image
+        {/* <Image
           width={0}
           height={0}
           sizes="100vw"
           className="absolute -z-1 inset-0 w-full h-170 object-cover o brightness-75"
           src={'/bg.jpg'}
           alt="одуванчик"
-        />
-        {/* <video
-          src={'./intro2.mp4'}
+        /> */}
+        <video
+          src={'./intro3.mp4'}
           loop
           autoPlay
           muted
           playsInline
           controls={false}
-          className="absolute inset-0 -z-1 h-[600px] object-cover object-[0_65%] w-full brightness-75"
-        /> */}
+          className="absolute inset-0 -z-1 h-170 object-cover object-[0_65%] w-full brightness-75"
+        />
         <div className="flex justify-center flex-col h-full">
           {/* <TypingText text="Добро пожаловать!" speed={80} /> */}
           <h1

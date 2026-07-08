@@ -3,7 +3,9 @@ import { Inter, Great_Vibes } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { UserProvider } from '@/contexts/UserContext'
 import Script from 'next/script'
+import { getMeAction } from '@/actions/user'
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
@@ -21,11 +23,13 @@ export const metadata: Metadata = {
   description: 'Церковь благодать москва север',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const data = await getMeAction()
+
   return (
     <html
       lang="en"
@@ -38,9 +42,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <Header />
-        <main className="flex-1 container pt-24 pb-20">{children}</main>
-        <Footer />
+        <UserProvider initialUser={data.ok ? data.data : undefined}>
+          <Header />
+          <main className="flex-1 container pt-24 pb-20">{children}</main>
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   )
