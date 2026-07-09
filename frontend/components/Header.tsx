@@ -14,12 +14,6 @@ import { UserStatus } from '@/models/User'
 import { useEffect, useState } from 'react'
 import { Button } from './Button'
 
-const navLinks = [
-  { name: 'О нас', location: '/about' },
-  { name: 'Новости', location: '/news' },
-  { name: 'Контакты', location: '/contacts' },
-]
-
 const statusInfo: Record<
   UserStatus,
   { tagStyle: string; description: string }
@@ -38,11 +32,21 @@ const statusInfo: Record<
   },
 }
 
+type NavLink = { name: string; location: string }
+
 export function Header() {
   const { user, logout } = useUser()
-  console.log(user)
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
+
+  const navLinks: NavLink[] = [
+    { name: 'О нас', location: '/about' },
+    { name: 'Новости', location: '/news' },
+    { name: 'Контакты', location: '/contacts' },
+    ...(user?.userStatus === 'принято'
+      ? [{ name: 'Дежурство', location: '/schedule' }]
+      : []),
+  ]
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -62,8 +66,8 @@ export function Header() {
 
   return (
     <header className="fixed top-3 left-1 right-1 z-10">
-      <div className="max-w-325 mx-auto flex items-center bg-white/90 backdrop-blur-md border-2 border-white/10 shadow-[0_2px_4px_rgba(255,255,255,0.1)_inset,0_0px_12px_rgba(15,23,42,0.08)] py-2 px-5 rounded-full">
-        <Link href={'/'} className="w-1/2">
+      <div className="max-w-325 mx-auto flex items-center justify-between bg-white/90 backdrop-blur-md border-2 border-white/10 shadow-[0_2px_4px_rgba(255,255,255,0.1)_inset,0_0px_12px_rgba(15,23,42,0.08)] py-2 px-5 rounded-full">
+        <Link href={'/'} className="">
           <Image
             className="w-full max-w-20 h-auto"
             width={0}

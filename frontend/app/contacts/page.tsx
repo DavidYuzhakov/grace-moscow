@@ -5,6 +5,7 @@ import {
   IconBrandYoutubeFilled,
   IconCalendarMonth,
   IconClock,
+  IconMail,
   IconMap,
   IconMapPin,
   IconPhoneCall,
@@ -54,16 +55,22 @@ export default function ContactsPage() {
           <div className="text-4xl text-primary font-medium">
             <a href="tel:79165998103">+7 (916) 599-81-03</a>
           </div>
+          <a
+            href="mailto:grace.church.msk@yandex.ru"
+            className="text-xl flex items-center gap-2 text-secondary"
+          >
+            <IconMail /> grace.church.msk@yandex.ru
+          </a>
           <div className="flex items-center gap-3">
             <a
               href="https://www.youtube.com/@grace.church.moscow"
-              className="flex items-center gap-1 bg-secondary p-3 rounded-full hover:rotate-15 duration-200 text-white"
+              className="flex items-center gap-1 bg-primary p-3 rounded-full hover:rotate-15 duration-200 text-white"
             >
               <IconBrandYoutubeFilled size={25} />
             </a>
             <a
               href="https://vkvideo.ru/@grace.moscow"
-              className="flex items-center gap-1 p-3 rounded-full bg-secondary hover:rotate-15 duration-200"
+              className="flex items-center gap-1 p-3 rounded-full bg-primary hover:rotate-15 duration-200"
             >
               <Image
                 width={25}
@@ -74,13 +81,13 @@ export default function ContactsPage() {
             </a>
             <a
               href="https://vk.com/grace.moscow"
-              className="flex items-center gap-1 p-3 rounded-full bg-secondary hover:rotate-15 duration-200"
+              className="flex items-center gap-1 p-3 rounded-full bg-primary hover:rotate-15 duration-200"
             >
               <Image width={25} height={40} src={'/vk.svg'} alt="вконтакте" />
             </a>
             <a
               href="https://t.me/grace_church_msk"
-              className="flex items-center gap-1 p-3 rounded-full bg-secondary hover:rotate-15 duration-200"
+              className="flex items-center gap-1 p-3 rounded-full bg-primary hover:rotate-15 duration-200"
             >
               <Image
                 width={25}
@@ -91,7 +98,7 @@ export default function ContactsPage() {
             </a>
             <a
               href="https://wa.me/9165998103"
-              className="flex items-center gap-1 bg-secondary p-3 rounded-full hover:rotate-15 duration-200 text-white"
+              className="flex items-center gap-1 bg-primary p-3 rounded-full hover:rotate-15 duration-200 text-white"
             >
               <IconBrandWhatsappFilled size={25} />
             </a>

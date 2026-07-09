@@ -9,11 +9,11 @@ export default function AboutPage() {
         <Image
           width={1000000}
           height={1000000}
-          className="absolute h-150 -z-1 inset-0 w-full object-cover object-[0_25%] brightness-75"
-          src={'/about.jpg'}
+          className="absolute h-150 -z-1 inset-0 w-full object-cover object-[0_60%] brightness-75"
+          src={'/about2.jpg'}
           alt="церковь"
         />
-        <h1 className="h-full flex justify-end flex-col font-bold text-white text-8xl pb-2 border-b-3 border-white w-fit">
+        <h1 className="h-full flex justify-end flex-col font-bold text-white text-8xl">
           О нас
         </h1>
       </div>

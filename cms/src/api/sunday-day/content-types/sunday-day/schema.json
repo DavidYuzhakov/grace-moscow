@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sunday_days",
+  "info": {
+    "singularName": "sunday-day",
+    "pluralName": "sunday-days",
+    "displayName": "Sunday"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "duties": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::duty.duty"
+    }
+  }
+}
