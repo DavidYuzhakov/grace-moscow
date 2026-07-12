@@ -81,12 +81,10 @@ export default async function SchedulePage() {
     return <ErrorState error={sunday.error} />
   }
 
-  console.log(sunday.data.duties)
-
   return (
     <div className="space-y-5">
       <h2 className="text-primary title">{sunday.data.date}</h2>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid gap-5 lg:grid-cols-3 grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
         {DUTY_ROLES.map((row) => {
           const duty = sunday.data.duties.find((a) => a.role === row.role)
 

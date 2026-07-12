@@ -23,6 +23,13 @@ export const metadata: Metadata = {
   description: 'Церковь благодать москва север',
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -35,18 +42,18 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.variable} ${greatVibes.variable} h-full antialiased`}
     >
-      <head>
-        <Script
-          src={`https://api-maps.yandex.ru/v3/?apikey=${process.env.NEXT_PUBLIC_YANDEX_API_KEY}&lang=ru_RU`}
-          strategy="lazyOnload"
-        />
-      </head>
       <body className="min-h-full flex flex-col">
         <UserProvider initialUser={data.ok ? data.data : undefined}>
           <Header />
-          <main className="flex-1 container pt-24 pb-20">{children}</main>
+          <main className="flex-1 container md:pt-24 pt-20 pb-20">
+            {children}
+          </main>
           <Footer />
         </UserProvider>
+        <Script
+          src={`https://api-maps.yandex.ru/v3/?apikey=${process.env.NEXT_PUBLIC_YANDEX_API_KEY}&lang=ru_RU`}
+          strategy="beforeInteractive"
+        />
       </body>
     </html>
   )

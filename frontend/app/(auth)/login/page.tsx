@@ -22,7 +22,7 @@ export default function LoginPage() {
   }, [state, router, setUser])
 
   return (
-    <section className="text-center max-w-120 mx-auto space-y-5">
+    <section className="text-center max-w-120 mx-auto space-y-5 md:pt-0 pt-4">
       <div>
         <h2 className="text-3xl font-semibold">Войти в аккаунт</h2>
         <p className="text-black/50 text-sm">

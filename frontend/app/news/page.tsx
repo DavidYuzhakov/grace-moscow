@@ -8,19 +8,17 @@ export default async function NewsPage() {
 
   return (
     <section>
-      <div className="container">
-        <h2 className="title mb-5">Новости</h2>
-        {!result.ok ? (
-          <ErrorState error={result.error} />
-        ) : (
-          <div className="gap-5 grid grid-cols-3">
-            {news.length === 0 && <p>Новостей нет</p>}
-            {news.slice(0, 3).map((news) => (
-              <NewsCard key={news.id} {...news} />
-            ))}
-          </div>
-        )}
-      </div>
+      <h2 className="title md:mb-5 mb-3">Новости</h2>
+      {!result.ok ? (
+        <ErrorState error={result.error} />
+      ) : (
+        <div className="gap-5 grid lg:grid-cols-3 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] grid-cols-1">
+          {news.length === 0 && <p>Новостей нет</p>}
+          {news.map((news) => (
+            <NewsCard key={news.id} {...news} />
+          ))}
+        </div>
+      )}
     </section>
   )
 }

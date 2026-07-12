@@ -1,29 +1,28 @@
-import Map from '@/components/Map'
-import { Tag } from '@/components/Tag'
 import {
   IconBrandWhatsappFilled,
   IconBrandYoutubeFilled,
   IconCalendarMonth,
   IconClock,
   IconMail,
-  IconMap,
-  IconMapPin,
   IconPhoneCall,
 } from '@tabler/icons-react'
 import Image from 'next/image'
+import { ContactsBlock } from '@/components/blocks/ContactsBlock'
 
 export default function ContactsPage() {
   return (
-    <section className="space-y-8">
-      <div className="text-center py-10">
-        <h2 className="font-bold mb-2 text-5xl">Контакты</h2>
-        <p className="text-foreground/70">
-          Мы всегда рады видеть вас. Присоединяйтесь к нашим служениям <br />{' '}
-          или свяжитесь с нами любым удобным способом.
+    <section className="md:space-y-8 space-y-4">
+      <div className="text-center md:py-5 py-3">
+        <h2 className="md:mb-2 mb-1 md:text-5xl text-3xl font-bold">
+          Контакты
+        </h2>
+        <p className="text-foreground/70 md:text-base text-sm max-w-140 mx-auto">
+          Мы всегда рады видеть вас. Присоединяйтесь к нашим служениям или
+          свяжитесь с нами любым удобным способом.
         </p>
       </div>
-      <div className="flex justify-between gap-7">
-        <div className="w-full max-w-1/2 bg-white rounded-xl p-6 space-y-4">
+      <div className="flex justify-between gap-7 md:flex-row flex-col">
+        <div className="w-full md:max-w-1/2 bg-white shadow-xs rounded-xl p-6 space-y-4">
           <div className="flex items-center gap-3 text-xl">
             <div className="bg-primary text-white rounded-full size-10 flex items-center justify-center">
               <IconCalendarMonth />
@@ -45,23 +44,26 @@ export default function ContactsPage() {
             </div>
           </div>
         </div>
-        <div className="w-full max-w-1/2 bg-white rounded-xl p-6 space-y-6">
-          <div className="flex items-center gap-3 text-2xl">
+        <div className="w-full md:max-w-1/2 shadow-xs bg-white rounded-xl p-6 md:space-y-6 space-y-8">
+          <div className="flex items-center gap-3 text-xl">
             <div className="bg-primary text-white rounded-full size-10 flex items-center justify-center">
               <IconPhoneCall />
             </div>
             Связь с нами
           </div>
-          <div className="text-4xl text-primary font-medium">
-            <a href="tel:79165998103">+7 (916) 599-81-03</a>
+          <div className="space-y-3">
+            <div className="lg:text-4xl min-[370px]:text-3xl text-[26px] text-primary font-medium">
+              <a href="tel:79165998103">+7 (916) 599-81-03</a>
+            </div>
+            <a
+              href="mailto:grace.church.msk@yandex.ru"
+              className="md:text-xl text-base flex items-center gap-2 text-secondary min-[370px]:text-lg"
+            >
+              <IconMail className="shrink-0 min-[370px]:size-6 size-5" />{' '}
+              grace.church.msk@yandex.ru
+            </a>
           </div>
-          <a
-            href="mailto:grace.church.msk@yandex.ru"
-            className="text-xl flex items-center gap-2 text-secondary"
-          >
-            <IconMail /> grace.church.msk@yandex.ru
-          </a>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <a
               href="https://www.youtube.com/@grace.church.moscow"
               className="flex items-center gap-1 bg-primary p-3 rounded-full hover:rotate-15 duration-200 text-white"
@@ -105,30 +107,7 @@ export default function ContactsPage() {
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <div className="bg-white shadow-sm rounded-full size-10 flex items-center justify-center">
-          <IconMapPin />
-        </div>
-        <h3 className="text-2xl font-medium">Где мы находимся</h3>
-      </div>
-      <div className="flex gap-4">
-        <Tag>
-          <Image width={25} height={25} src={'/metro.svg'} alt="Метро" />
-          Коптево
-        </Tag>
-        <Tag>
-          <a
-            href="https://yandex.ru/maps/213/moscow/?ll=37.523571%2C55.837463&mode=poi&poi%5Bpoint%5D=37.523460%2C55.837439&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D208449406853&z=20.33"
-            className="flex items-center gap-2 hover:underline"
-          >
-            <IconMap />
-            Коптевская улица 30А, 2 этаж
-          </a>
-        </Tag>
-      </div>
-      <div className="w-full h-80">
-        <Map />
-      </div>
+      <ContactsBlock />
     </section>
   )
 }

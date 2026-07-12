@@ -7,11 +7,13 @@ import {
   IconChevronDown,
   IconLogin2,
   IconLogout,
+  IconMenu2,
   IconUserCircle,
+  IconX,
 } from '@tabler/icons-react'
 import { useUser } from '@/contexts/UserContext'
 import { UserStatus } from '@/models/User'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button } from './Button'
 
 const statusInfo: Record<
@@ -36,23 +38,36 @@ type NavLink = { name: string; location: string }
 
 export function Header() {
   const { user, logout } = useUser()
-  const [isOpen, setIsOpen] = useState(false)
+  const [openPopup, setOpenPopup] = useState<null | 'profile' | 'menu'>(null)
   const pathname = usePathname()
 
-  const navLinks: NavLink[] = [
-    { name: 'О нас', location: '/about' },
-    { name: 'Новости', location: '/news' },
-    { name: 'Контакты', location: '/contacts' },
-    ...(user?.userStatus === 'принято'
-      ? [{ name: 'Дежурство', location: '/schedule' }]
-      : []),
-  ]
+  const navLinks: NavLink[] = useMemo(
+    () => [
+      { name: 'О нас', location: '/about' },
+      { name: 'Новости', location: '/news' },
+      { name: 'Контакты', location: '/contacts' },
+      ...(user?.userStatus === 'принято'
+        ? [
+            {
+              name: 'Дежурство',
+              location: '/schedule',
+            },
+          ]
+        : []),
+    ],
+    [user?.userStatus],
+  )
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (isOpen) {
-        if (!(e.target as HTMLElement)?.closest('#profile-info')) {
-          setIsOpen(false)
+      if (openPopup === 'menu') {
+        if (!(e.target as HTMLElement)?.closest('.menu')) {
+          setOpenPopup(null)
+        }
+      }
+      if (openPopup === 'profile') {
+        if (!(e.target as HTMLElement)?.closest('.profile-info')) {
+          setOpenPopup(null)
         }
       }
     }
@@ -62,49 +77,55 @@ export function Header() {
     return () => {
       document.removeEventListener('click', handler)
     }
-  }, [isOpen])
+  }, [openPopup])
 
   return (
     <header className="fixed top-3 left-1 right-1 z-10">
-      <div className="max-w-325 mx-auto flex items-center justify-between bg-white/90 backdrop-blur-md border-2 border-white/10 shadow-[0_2px_4px_rgba(255,255,255,0.1)_inset,0_0px_12px_rgba(15,23,42,0.08)] py-2 px-5 rounded-full">
-        <Link href={'/'} className="">
+      <div className="max-w-325 mx-auto md:grid grid-cols-[1fr_auto_1fr] flex gap-5 items-center justify-between bg-white/90 backdrop-blur-md border-2 border-white/10 shadow-[0_2px_4px_rgba(255,255,255,0.1)_inset,0_0px_12px_rgba(15,23,42,0.08)] py-2 px-5 rounded-full">
+        <Link href={'/'} className="w-fit shrink-0">
           <Image
-            className="w-full max-w-20 h-auto"
+            className="w-full md:max-w-20 max-w-16 h-auto shrink-0"
             width={0}
             height={0}
             sizes="100vw"
+            style={{ width: '100%', height: 'auto' }}
             src={'/logo.png'}
             alt="Логотип"
           />
         </Link>
-        <div className="flex items-center justify-between w-1/2">
-          <nav className="-translate-x-1/2">
-            <ul className="flex items-center gap-12">
-              {navLinks.map((link) => (
-                <li
-                  key={link.name}
-                  className={`cursor-pointer font-medium hover:text-primary duration-200 ${pathname === link.location ? 'text-primary' : ''}`}
-                >
-                  <Link href={link.location}>{link.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <nav className="md:block hidden">
+          <ul className="flex items-center lg:gap-12 gap-8">
+            {navLinks.map((link) => (
+              <li
+                key={link.name}
+                className={`cursor-pointer text-nowrap font-medium hover:text-primary duration-200 ${pathname === link.location ? 'text-primary' : ''}`}
+              >
+                <Link href={link.location}>{link.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="flex items-center gap-4 justify-end w-full">
           {user ? (
-            <div className="relative" onClick={() => setIsOpen(true)}>
-              <div className="flex items-center gap-2 hover:text-primary cursor-pointer duration-200">
-                <IconUserCircle />
-                <div className="font-medium">{user.name}</div>
+            <div className="relative ml-auto">
+              <div
+                onClick={() => setOpenPopup('profile')}
+                className="flex items-center gap-2 hover:text-primary cursor-pointer duration-200"
+              >
+                <IconUserCircle className="size-6" />
+                <div className="font-medium text-nowrap truncate max-w-47.5 lg:block hidden">
+                  {user.name}
+                </div>
                 <IconChevronDown
-                  className={`-ml-1.5 duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                  className={`-ml-1.5 duration-200 lg:block hidden ${openPopup === 'profile' ? 'rotate-180' : ''}`}
                   size={20}
                 />
               </div>
-              {isOpen && (
-                <div
-                  id="profile-info"
-                  className="absolute top-[calc(100%+10px)] right-0 p-3 bg-white rounded-xl  drop-shadow-[0_0px_10px_rgba(0,0,0,0.1)] w-60 space-y-4"
-                >
+              {openPopup === 'profile' && (
+                <div className="profile-info absolute top-[calc(100%+10px)] right-0 p-3 bg-white rounded-xl  drop-shadow-[0_0px_10px_rgba(0,0,0,0.1)] w-60 space-y-4">
+                  <div className="truncate font-medium text-lg lg:hidden block">
+                    {user.name}
+                  </div>
                   <div className="truncate">
                     Email: <span className="text-sm">{user.email}</span>
                   </div>
@@ -125,7 +146,7 @@ export function Header() {
                   <Button
                     variant="ghost"
                     onClick={() => {
-                      setIsOpen(false)
+                      setOpenPopup(null)
                       logout()
                     }}
                     className="text-red-500 w-full flex items-center gap-2 justify-center py-1 rounded-xl bg-red-50 hover:bg-red-100 disabled:opacity-50"
@@ -138,15 +159,49 @@ export function Header() {
             </div>
           ) : (
             <Link
-              className="text-primary flex items-center gap-1 text-lg font-medium group"
+              className="text-primary items-center gap-1 text-lg font-medium group  md:flex hidden"
               href={'/login'}
             >
               Войти{' '}
               <IconLogin2 className="group-hover:translate-x-1 duration-200" />
             </Link>
           )}
+          <div
+            onClick={() =>
+              setOpenPopup((prev) => (prev === null ? 'menu' : null))
+            }
+            className="md:hidden block"
+          >
+            {openPopup === 'menu' ? <IconX /> : <IconMenu2 />}
+          </div>
         </div>
       </div>
+
+      <nav
+        className={`menu md:hidden block bg-white/90 backdrop-blur-sm rounded-2xl absolute top-[calc(100%+10px)] left-1 right-1 shadow-sm space-y-7 p-4 duration-200 ${openPopup === 'menu' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+      >
+        <div className="space-y-2">
+          {navLinks.map((link) => (
+            <Link
+              onClick={() => setOpenPopup(null)}
+              key={link.name}
+              className={`block text-xl text-center py-3 font-medium ${pathname === link.location ? 'text-primary bg-primary/10 rounded-full' : ''}`}
+              href={link.location}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+        {!user && (
+          <Link
+            onClick={() => setOpenPopup(null)}
+            className="rounded-2xl bg-primary text-white w-full flex items-center gap-2 justify-center py-3 font-medium"
+            href={'/login'}
+          >
+            Войти <IconLogin2 />
+          </Link>
+        )}
+      </nav>
     </header>
   )
 }

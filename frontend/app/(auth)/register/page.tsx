@@ -24,7 +24,7 @@ export default function RegisterPage() {
   }, [state, router, setUser])
 
   return (
-    <section className="text-center max-w-120 mx-auto space-y-5">
+    <section className="text-center max-w-120 mx-auto space-y-5 md:pt-0 pt-4">
       <div>
         <h2 className="text-3xl font-semibold">Создать аккаунт</h2>
         <p className="text-black/50 text-sm">
@@ -33,11 +33,11 @@ export default function RegisterPage() {
       </div>
       <Button
         variant="outline"
-        className="rounded-lg w-full hover:bg-foreground/5"
+        className="rounded-lg w-full hover:bg-foreground/5 px-2"
       >
         <Link
           href={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/connect/google`}
-          className="flex items-center justify-center gap-2"
+          className="flex items-center justify-center gap-2 md:text-base text-sm"
         >
           <Image width={25} height={25} src={'/google.png'} alt="Google" />{' '}
           Зарегистрироваться через Google
@@ -54,7 +54,7 @@ export default function RegisterPage() {
         )}
         <div className="flex items-center gap-3">
           <label className="flex flex-col items-start gap-1 w-full">
-            <span className="font-semibold">Фамилия и Имя</span>
+            <span className="font-semibold">Фамилия Имя</span>
             <input
               required
               minLength={3}
