@@ -45,9 +45,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <UserProvider initialUser={data.ok ? data.data : undefined}>
           <Header />
-          <main className="flex-1 container md:pt-24 pt-20 pb-20">
-            {children}
-          </main>
+          <main className="flex-1 container pt-24 pb-20">{children}</main>
           <Footer />
         </UserProvider>
         <Script
