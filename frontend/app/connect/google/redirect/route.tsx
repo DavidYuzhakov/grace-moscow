@@ -1,4 +1,4 @@
-import { setAuthToken } from '@/lib/auth/session'
+import { setAuthToken } from '@/lib/session'
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
@@ -11,8 +11,6 @@ export async function GET(request: Request) {
     `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/auth/google/callback?access_token=${accessToken}`,
   )
   const data = await response.json()
-
-  console.log(data)
 
   await setAuthToken(data.jwt)
 

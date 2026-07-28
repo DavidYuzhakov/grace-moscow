@@ -1,7 +1,7 @@
-import { getMeAction } from '@/actions/user'
 import { ErrorState } from '@/components/ErrorState'
 import { Tag } from '@/components/Tag'
 import { sundayService } from '@/services/sunday.service'
+import { userService } from '@/services/user.service'
 import { IconClock } from '@tabler/icons-react'
 import { redirect } from 'next/navigation'
 
@@ -65,13 +65,14 @@ export const DUTY_ROLES = [
 ]
 
 export default async function SchedulePage() {
-  const data = await getMeAction()
+  const data = await userService.getMe()
+  const user = data.ok ? data.data : undefined
 
-  if (!data.ok) {
+  if (!user) {
     redirect('/')
   }
 
-  if (data.data.userStatus !== 'принято') {
+  if (user.userStatus !== 'принято') {
     redirect('/forbidden')
   }
 

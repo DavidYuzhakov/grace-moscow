@@ -2,26 +2,15 @@
 
 import { registerAction } from '@/actions/auth'
 import { Button } from '@/components/Button'
-import { useUser } from '@/contexts/UserContext'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useActionState, useEffect } from 'react'
+import { useActionState } from 'react'
 
 export default function RegisterPage() {
-  const { setUser } = useUser()
-  const router = useRouter()
   const [state, formAction, pending] = useActionState(registerAction, {
     ok: false,
   })
-
-  useEffect(() => {
-    if (state.ok) {
-      setUser(state.data)
-      router.push('/')
-    }
-  }, [state, router, setUser])
 
   return (
     <section className="text-center max-w-120 mx-auto space-y-5 md:pt-0 pt-4">

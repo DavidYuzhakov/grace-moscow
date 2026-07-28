@@ -15,7 +15,7 @@ export default async function HomePage() {
     <div className="-mt-24">
       <section className="h-170">
         <video
-          src={'./intro.mp4'}
+          src={'/intro.mp4'}
           loop
           autoPlay
           muted

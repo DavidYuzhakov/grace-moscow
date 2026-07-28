@@ -18,4 +18,5 @@ export async function setAuthToken(token: string) {
 export async function removeAuthToken() {
   const cookieStore = await cookies()
   cookieStore.delete('jwt')
+  console.log(46)
 }

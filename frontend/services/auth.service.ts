@@ -1,5 +1,5 @@
 import { api } from '@/lib/api'
-import { setAuthToken } from '@/lib/auth/session'
+import { setAuthToken } from '@/lib/session'
 import { User } from '@/models/User'
 
 type RegisterPayload = {

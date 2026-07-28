@@ -13,7 +13,7 @@ export function Footer() {
             <Image
               src={'/logo-white.png'}
               width={130}
-              height={50}
+              height={70}
               className="mx-auto"
               alt="Логотип"
             />
@@ -42,8 +42,9 @@ export function Footer() {
               >
                 <Image
                   width={25}
-                  height={40}
+                  height={25}
                   src={'/vkvideo.svg'}
+                  className="h-auto object-contain"
                   alt="VK Video"
                 />
               </a>
@@ -51,7 +52,7 @@ export function Footer() {
                 href="https://vk.com/grace.moscow"
                 className="flex items-center gap-1 p-3 rounded-full bg-secondary/50 hover:rotate-15 duration-200"
               >
-                <Image width={25} height={40} src={'/vk.svg'} alt="вконтакте" />
+                <Image width={25} height={25} src={'/vk.svg'} alt="вконтакте" />
               </a>
               <a
                 href="https://t.me/grace_church_msk"
@@ -61,6 +62,7 @@ export function Footer() {
                   width={25}
                   height={25}
                   src={'/telegram.svg'}
+                  style={{ height: 'auto' }}
                   alt="Telegram"
                 />
               </a>

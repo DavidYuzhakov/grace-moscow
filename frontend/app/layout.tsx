@@ -3,9 +3,7 @@ import { Inter, Great_Vibes } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { UserProvider } from '@/contexts/UserContext'
 import Script from 'next/script'
-import { getMeAction } from '@/actions/user'
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
@@ -35,23 +33,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const data = await getMeAction()
-
   return (
     <html
       lang="en"
       className={`${inter.variable} ${greatVibes.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <UserProvider initialUser={data.ok ? data.data : undefined}>
-          <Header />
-          <main className="flex-1 container pt-24 pb-20">{children}</main>
-          <Footer />
-        </UserProvider>
-        <Script
-          src={`https://api-maps.yandex.ru/v3/?apikey=${process.env.NEXT_PUBLIC_YANDEX_API_KEY}&lang=ru_RU`}
-          strategy="beforeInteractive"
-        />
+        <Header />
+        <main className="flex-1 container pt-24 pb-20">{children}</main>
+        <Footer />
       </body>
     </html>
   )

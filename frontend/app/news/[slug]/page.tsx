@@ -34,8 +34,6 @@ export default async function NewsDetailsPage({ params }: NewsDetailsProps) {
   const { title, img, description, phone, telegramLink, address, date, time } =
     result.data
 
-  console.log(JSON.stringify(description))
-
   return (
     <article>
       <div className="lg:flex">

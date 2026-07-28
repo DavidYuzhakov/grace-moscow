@@ -77,6 +77,7 @@ export default function ContactsPage() {
               <Image
                 width={25}
                 height={40}
+                style={{ height: 'auto' }}
                 src={'/vkvideo.svg'}
                 alt="VK Video"
               />
@@ -85,7 +86,13 @@ export default function ContactsPage() {
               href="https://vk.com/grace.moscow"
               className="flex items-center gap-1 p-3 rounded-full bg-primary hover:rotate-15 duration-200"
             >
-              <Image width={25} height={40} src={'/vk.svg'} alt="вконтакте" />
+              <Image
+                width={25}
+                height={40}
+                src={'/vk.svg'}
+                style={{ height: 'auto' }}
+                alt="вконтакте"
+              />
             </a>
             <a
               href="https://t.me/grace_church_msk"
@@ -94,6 +101,7 @@ export default function ContactsPage() {
               <Image
                 width={25}
                 height={25}
+                style={{ height: 'auto' }}
                 src={'/telegram.svg'}
                 alt="Telegram"
               />

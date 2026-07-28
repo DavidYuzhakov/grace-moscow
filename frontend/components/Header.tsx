@@ -1,8 +1,11 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
+import { logoutAction } from '@/actions/auth'
+import { Result } from '@/lib/api'
+import { User, UserStatus } from '@/models/User'
 import { usePathname } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
+
 import {
   IconChevronDown,
   IconLogin2,
@@ -11,10 +14,11 @@ import {
   IconUserCircle,
   IconX,
 } from '@tabler/icons-react'
-import { useUser } from '@/contexts/UserContext'
-import { UserStatus } from '@/models/User'
-import { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from './Button'
+
+type NavLink = { name: string; location: string }
 
 const statusInfo: Record<
   UserStatus,
@@ -34,15 +38,15 @@ const statusInfo: Record<
   },
 }
 
-type NavLink = { name: string; location: string }
-
 export function Header() {
-  const { user, logout } = useUser()
+  const [user, setUser] = useState<User>()
   const [openPopup, setOpenPopup] = useState<null | 'profile' | 'menu'>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
   const pathname = usePathname()
 
-  const navLinks: NavLink[] = useMemo(
-    () => [
+  const navLinks: NavLink[] = useMemo(() => {
+    return [
       { name: 'О нас', location: '/about' },
       { name: 'Новости', location: '/news' },
       { name: 'Контакты', location: '/contacts' },
@@ -54,9 +58,35 @@ export function Header() {
             },
           ]
         : []),
-    ],
-    [user?.userStatus],
-  )
+    ]
+  }, [user?.userStatus])
+
+  const logoutHandler = async () => {
+    setOpenPopup(null)
+    setUser(undefined)
+    await logoutAction()
+  }
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const res = await fetch('/api/me')
+        if (!res.ok) throw new Error('Не удалось получить пользователя')
+
+        const data: Result<User> = await res.json()
+
+        if (data.ok) {
+          setUser(data.data)
+        }
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadUser()
+  }, [])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -145,10 +175,7 @@ export function Header() {
                   </div>
                   <Button
                     variant="ghost"
-                    onClick={() => {
-                      setOpenPopup(null)
-                      logout()
-                    }}
+                    onClick={logoutHandler}
                     className="text-red-500 w-full flex items-center gap-2 justify-center py-1 rounded-xl bg-red-50 hover:bg-red-100 disabled:opacity-50"
                   >
                     Выйти
@@ -157,7 +184,7 @@ export function Header() {
                 </div>
               )}
             </div>
-          ) : (
+          ) : !isLoading ? (
             <Link
               className="text-primary items-center gap-1 text-lg font-medium group  md:flex hidden"
               href={'/login'}
@@ -165,6 +192,8 @@ export function Header() {
               Войти{' '}
               <IconLogin2 className="group-hover:translate-x-1 duration-200" />
             </Link>
+          ) : (
+            <></>
           )}
           <div
             onClick={() =>

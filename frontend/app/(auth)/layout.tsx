@@ -1,5 +1,5 @@
+import { userService } from '@/services/user.service'
 import type { Metadata } from 'next'
-import { getMeAction } from '@/actions/user'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export default async function AuthLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const data = await getMeAction()
+  const data = await userService.getMe()
 
   if (data.ok) {
     redirect('/')

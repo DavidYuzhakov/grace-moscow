@@ -1,5 +1,5 @@
 import { api, Response, Result } from '@/lib/api'
-import { getAuthToken } from '@/lib/auth/session'
+import { getAuthToken } from '@/lib/session'
 import { Sunday } from '@/models/Sunday'
 
 export const sundayService = {

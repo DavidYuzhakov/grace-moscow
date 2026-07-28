@@ -1,6 +1,6 @@
 'use server'
 
-import { removeAuthToken } from '@/lib/auth/session'
+import { removeAuthToken } from '@/lib/session'
 import { User } from '@/models/User'
 import { authService } from '@/services/auth.service'
 import { redirect } from 'next/navigation'
@@ -32,7 +32,7 @@ type LoginState = {
 }
 
 type StrapiError = {
-  error: {
+  error?: {
     message: string
   }
 }
@@ -54,7 +54,7 @@ export async function registerAction(
     let errorText = 'Не удалось зарегистрироваться'
 
     if (
-      (error as StrapiError).error.message ===
+      (error as StrapiError).error?.message ===
       'Email or Username are already taken'
     ) {
       errorText = 'Эта почта уже существует'
@@ -78,14 +78,14 @@ export async function loginAction(
   }
 
   try {
-    const user = await authService.login(values)
-    return { ok: true, data: user }
+    await authService.login(values)
+    redirect('/')
   } catch (error) {
     console.error(error)
     let errorText = 'Не удалось авторизоваться'
 
     if (
-      (error as StrapiError).error.message === 'Invalid identifier or password'
+      (error as StrapiError).error?.message === 'Invalid identifier or password'
     ) {
       errorText = 'Неверный email или пароль'
     }
