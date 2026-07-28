@@ -3,7 +3,6 @@ import { Inter, Great_Vibes } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import Script from 'next/script'
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],

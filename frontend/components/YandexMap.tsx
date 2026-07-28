@@ -14,26 +14,26 @@ export function YandexMap() {
 
   React.useEffect(() => {
     if (!scriptLoaded || typeof ymaps3 === 'undefined') return
-    let isMounted = true
+    // let isMounted = true
 
     Promise.all([ymaps3.import('@yandex/ymaps3-reactify'), ymaps3.ready])
       .then(([{ reactify }]) => {
-        if (isMounted) {
-          setReactifiedApi(reactify.bindTo(React, ReactDOM).module(ymaps3))
-        }
+        // if (isMounted) {
+        setReactifiedApi(reactify.bindTo(React, ReactDOM).module(ymaps3))
+        // }
       })
       .catch((err) => console.error('Ошибка инициализации Яндекс.Карт:', err))
 
-    return () => {
-      isMounted = false
-    }
+    // return () => {
+    //   isMounted = false
+    // }
   }, [scriptLoaded])
 
   return (
     <>
       <Script
         src={`https://api-maps.yandex.ru/v3/?apikey=${process.env.NEXT_PUBLIC_YANDEX_API_KEY}&lang=ru_RU`}
-        onLoad={() => setScriptLoaded(true)}
+        onReady={() => setScriptLoaded(true)}
       />
       {reactifiedApi ? (
         <MapContainer api={reactifiedApi} />
@@ -56,7 +56,7 @@ function MapContainer({ api }: { api: ReactifiedApi }) {
       <YMapDefaultSchemeLayer />
       <YMapDefaultFeaturesLayer />
       <YMapMarker coordinates={[37.523453, 55.837437]}>
-        <IconMapPinFilled className="-translate-1/2 text-primary" size={30} />
+        <IconMapPinFilled className="-translate-1/2 text-primary" size={25} />
       </YMapMarker>
     </YMap>
   )
