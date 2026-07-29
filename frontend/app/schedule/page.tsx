@@ -5,6 +5,8 @@ import { userService } from '@/services/user.service'
 import { IconClock } from '@tabler/icons-react'
 import { redirect } from 'next/navigation'
 
+export const dynamic = 'force-dynamic'
+
 export default async function SchedulePage() {
   const data = await userService.getMe()
   const user = data.ok ? data.data : undefined

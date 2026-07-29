@@ -193,7 +193,7 @@ export function Header() {
               <IconLogin2 className="group-hover:translate-x-1 duration-200" />
             </Link>
           ) : (
-            <></>
+            <div className="bg-gray-300 animate-pulse rounded-lg h-6 w-16 lg:w-40 md:block hidden"></div>
           )}
           <div
             onClick={() =>
