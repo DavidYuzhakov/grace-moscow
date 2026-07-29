@@ -1,9 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "sunday_days",
+  "collectionName": "sundays",
   "info": {
-    "singularName": "sunday-day",
-    "pluralName": "sunday-days",
+    "singularName": "sunday",
+    "pluralName": "sundays",
     "displayName": "Sunday"
   },
   "options": {
@@ -17,7 +17,8 @@
     "duties": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::duty.duty"
+      "target": "api::duty.duty",
+      "mappedBy": "sunday"
     }
   }
 }

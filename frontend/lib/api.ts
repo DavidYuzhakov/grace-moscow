@@ -1,5 +1,7 @@
+import qs from 'qs'
+
 type RequestOptions = RequestInit & {
-  params?: Record<string, string>
+  params?: Record<string, string | object>
 }
 export type Response<T> = { data: T }
 export type Result<T> = { ok: true; data: T } | { ok: false; error: string }
@@ -31,7 +33,8 @@ const request = async <T>(
   }
 
   if (options.params) {
-    url += `?${new URLSearchParams(options.params).toString()}`
+    const queryString = qs.stringify(options.params, { encodeValuesOnly: true })
+    url += `?${queryString}`
   }
 
   const response = await fetch(url, config)

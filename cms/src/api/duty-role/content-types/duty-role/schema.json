@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "duty_roles",
+  "info": {
+    "singularName": "duty-role",
+    "pluralName": "duty-roles",
+    "displayName": "DutyRole"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "required": true
+    },
+    "time": {
+      "type": "string"
+    },
+    "duty": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::duty.duty",
+      "mappedBy": "duty_role"
+    }
+  }
+}

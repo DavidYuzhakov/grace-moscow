@@ -10,12 +10,20 @@ export const sundayService = {
         return { ok: false, error: 'Пользователь не авторизован' }
       }
 
-      const { data } = await api.get<Response<Sunday[]>>('/sunday-days', {
+      const { data } = await api.get<Response<Sunday[]>>('/sundays', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          populate: '*',
+          populate: {
+            duties: {
+              populate: {
+                duty_role: {
+                  populate: '*',
+                },
+              },
+            },
+          },
         },
       })
 

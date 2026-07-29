@@ -5,6 +5,10 @@ export interface Sunday {
 
 interface Duty {
   person: string
-  role: string
+  duty_role: {
+    name: string
+    order: number
+    time: string
+  }
   id: string
 }

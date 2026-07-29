@@ -440,6 +440,37 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiDutyRoleDutyRole extends Struct.CollectionTypeSchema {
+  collectionName: 'duty_roles';
+  info: {
+    displayName: 'DutyRole';
+    pluralName: 'duty-roles';
+    singularName: 'duty-role';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    duty: Schema.Attribute.Relation<'oneToOne', 'api::duty.duty'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::duty-role.duty-role'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    order: Schema.Attribute.Integer & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    time: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiDutyDuty extends Struct.CollectionTypeSchema {
   collectionName: 'duties';
   info: {
@@ -454,29 +485,16 @@ export interface ApiDutyDuty extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    duty_role: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::duty-role.duty-role'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::duty.duty'> &
       Schema.Attribute.Private;
     person: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    role: Schema.Attribute.Enumeration<
-      [
-        '\u043D\u0443\u043B\u0435\u0432\u0430\u044F \u0445\u0432\u0430\u043B\u0430',
-        '\u043C\u043E\u043B\u0438\u0442\u0432\u0430 \u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u0435\u043B\u044F \u0438 \u0410\u0421\u0412',
-        '\u0432\u0435\u0434\u0443\u0449\u0438\u0439 \u043F\u0440\u043E\u0441\u043B\u0430\u0432\u043B\u0435\u043D\u0438\u044F',
-        '\u043C\u043E\u043B\u044F\u0449\u0438\u0439\u0441\u044F \u0437\u0430 \u043D\u0443\u0436\u0434\u044B',
-        '\u0431\u043B\u0430\u0433\u043E\u0441\u043B\u043E\u0432\u0435\u043D\u0438\u0435 \u0434\u0435\u0442\u0435\u0439',
-        '\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043F\u0440\u043E\u043F\u043E\u0432\u0435\u0434\u0443\u044E\u0449\u0435\u0433\u043E \u0433\u043E\u0441\u0442\u044F',
-        '\u043F\u0440\u043E\u043F\u043E\u0432\u0435\u0434\u0443\u0435\u0442',
-        '\u043E\u0431\u044A\u044F\u0432\u043B\u0435\u043D\u0438\u044F',
-        '\u0430\u043D\u043E\u043D\u0441 "\u0434\u0435\u0441\u044F\u0442\u0438\u043D\u044B", \u0441\u0431\u043E\u0440 \u0438 \u043C\u043E\u043B\u0438\u0442\u0432\u0430',
-        '\u0431\u043B\u0430\u0433\u043E\u0441\u043B\u043E\u0432\u0435\u043D\u0438\u0435 \u043F\u043E\u0436\u0435\u0440\u0442\u0432\u043E\u0432\u0430\u043D\u0438\u0439 \u0438 \u0434\u0435\u0441\u044F\u0442\u0438\u043D. \u0424\u0438\u043D\u0430\u043B \u0431\u043E\u0433\u043E\u0441\u043B\u0443\u0436\u0435\u043D\u0438\u044F "\u041E\u0442\u0447\u0435 \u043D\u0430\u0448" + \u041F\u0430\u0441\u0442\u043E\u0440\u0441\u043A\u043E\u0435 \u0411\u043B\u0430\u0433\u043E\u0441\u043B\u043E\u0432\u0435\u043D\u0438\u0435',
-        '\u0434\u0435\u0436\u0443\u0440\u0438\u0442 \u0432 \u0441\u0442\u043E\u043B\u043E\u0432\u043E\u0439. \u041F\u0435\u0440\u0435\u0445\u043E\u0434 \u0432 \u0441\u0442\u043E\u043B\u043E\u0432\u0443\u044E',
-        '\u0441\u043B\u0430\u0439\u0434\u044B',
-        '\u0432\u0441\u0442\u0440\u0435\u0447\u0430 \u0432 \u0444\u043E\u0439\u0435 \u043D\u0430 2 \u044D\u0442\u0430\u0436\u0435 \u043D\u043E\u0432\u044B\u0445 \u043B\u044E\u0434\u0435\u0439',
-        '\u0434\u0435\u0442\u0441\u043A\u043E\u0435 \u0441\u043B\u0443\u0436\u0435\u043D\u0438\u0435',
-      ]
-    >;
+    sunday: Schema.Attribute.Relation<'manyToOne', 'api::sunday.sunday'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -520,12 +538,12 @@ export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiSundayDaySundayDay extends Struct.CollectionTypeSchema {
-  collectionName: 'sunday_days';
+export interface ApiSundaySunday extends Struct.CollectionTypeSchema {
+  collectionName: 'sundays';
   info: {
     displayName: 'Sunday';
-    pluralName: 'sunday-days';
-    singularName: 'sunday-day';
+    pluralName: 'sundays';
+    singularName: 'sunday';
   };
   options: {
     draftAndPublish: true;
@@ -539,7 +557,7 @@ export interface ApiSundayDaySundayDay extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::sunday-day.sunday-day'
+      'api::sunday.sunday'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
@@ -1069,9 +1087,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::duty-role.duty-role': ApiDutyRoleDutyRole;
       'api::duty.duty': ApiDutyDuty;
       'api::news-item.news-item': ApiNewsItemNewsItem;
-      'api::sunday-day.sunday-day': ApiSundayDaySundayDay;
+      'api::sunday.sunday': ApiSundaySunday;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
