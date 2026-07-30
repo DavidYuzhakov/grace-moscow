@@ -11,6 +11,7 @@ export const sundayService = {
       }
 
       const { data } = await api.get<Response<Sunday[]>>('/sundays', {
+        cache: 'no-store',
         headers: {
           Authorization: `Bearer ${token}`,
         },

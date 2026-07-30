@@ -48,8 +48,7 @@ export async function registerAction(
   }
 
   try {
-    const user = await authService.register(values)
-    return { ok: true, data: user }
+    await authService.register(values)
   } catch (error: unknown) {
     let errorText = 'Не удалось зарегистрироваться'
 
@@ -66,6 +65,8 @@ export async function registerAction(
       error: errorText,
     }
   }
+
+  redirect('/')
 }
 
 export async function loginAction(
@@ -79,7 +80,6 @@ export async function loginAction(
 
   try {
     await authService.login(values)
-    redirect('/')
   } catch (error) {
     console.error(error)
     let errorText = 'Не удалось авторизоваться'
@@ -96,4 +96,6 @@ export async function loginAction(
       error: errorText,
     }
   }
+
+  redirect('/')
 }

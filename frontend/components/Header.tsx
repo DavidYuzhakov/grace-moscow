@@ -86,7 +86,7 @@ export function Header() {
     }
 
     loadUser()
-  }, [])
+  }, [pathname])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

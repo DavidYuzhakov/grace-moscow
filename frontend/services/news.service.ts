@@ -1,6 +1,10 @@
 import { api, Response, Result } from '@/lib/api'
 import { News } from '@/models/News'
 
+export const NEWS_REVALIDATE = 300
+
+const newsCache = { next: { revalidate: NEWS_REVALIDATE } }
+
 export const newsService = {
   getAllNews: async (): Promise<Result<News[]>> => {
     try {
@@ -8,6 +12,7 @@ export const newsService = {
         params: {
           populate: '*',
         },
+        ...newsCache,
       })
       return { data, ok: true }
     } catch (error) {
@@ -22,6 +27,7 @@ export const newsService = {
     try {
       const { data } = await api.get<Response<News[]>>('/news', {
         params: { 'filters[slug][$eq]': slug, populate: '*' },
+        ...newsCache,
       })
       return { data: data[0], ok: true }
     } catch (error) {

@@ -1,7 +1,8 @@
 import qs from 'qs'
 
-type RequestOptions = RequestInit & {
+type RequestOptions = Omit<RequestInit, 'body'> & {
   params?: Record<string, string | object>
+  body?: BodyInit | null
 }
 export type Response<T> = { data: T }
 export type Result<T> = { ok: true; data: T } | { ok: false; error: string }
@@ -21,23 +22,27 @@ const request = async <T>(
   endpoint: string,
   options: RequestOptions,
 ): Promise<T> => {
-  let url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api${endpoint}`
+  const { params, headers: optionHeaders, ...fetchOptions } = options
+  const isServer = typeof window === 'undefined'
+  const baseUrl = isServer
+    ? 'http://strapi:1337'
+    : process.env.NEXT_PUBLIC_STRAPI_API_URL
+
+  let url = `${baseUrl}/api${endpoint}`
   const headers = {
     'Content-Type': 'application/json',
-    ...options.headers,
+    ...optionHeaders,
   }
 
-  const config = {
-    headers,
-    ...options,
-  }
-
-  if (options.params) {
-    const queryString = qs.stringify(options.params, { encodeValuesOnly: true })
+  if (params) {
+    const queryString = qs.stringify(params, { encodeValuesOnly: true })
     url += `?${queryString}`
   }
 
-  const response = await fetch(url, config)
+  const response = await fetch(url, {
+    headers,
+    ...fetchOptions,
+  })
 
   if (!response.ok) {
     const error = await response.json()

@@ -11,6 +11,7 @@ export const userService = {
       }
 
       const data = await api.get<User>('/users/me', {
+        cache: 'no-store',
         headers: {
           Authorization: `Bearer ${token}`,
         },
