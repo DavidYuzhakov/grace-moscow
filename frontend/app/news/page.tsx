@@ -1,6 +1,13 @@
 import { ErrorState } from '@/components/ErrorState'
 import NewsCard from '@/components/NewsCard'
 import { newsService } from '@/services/news.service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Новости',
+  description:
+    'Актуальные новости нашей церкви. Домашние группы, выезды, курсы.',
+}
 
 export default async function NewsPage() {
   const result = await newsService.getAllNews()

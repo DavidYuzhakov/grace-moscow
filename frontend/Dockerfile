@@ -12,6 +12,9 @@ npm ci --no-audit --no-fund
 
 COPY . .
 
+ARG NEXT_PUBLIC_STRAPI_API_URL
+
+ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
 ENV NODE_ENV=production
 
 RUN npm run build

@@ -1,6 +1,13 @@
 import { AboutBlock } from '@/components/blocks/AboutBlock'
 import { Chip } from '@/components/Chip'
+import { Metadata } from 'next'
 import Image from 'next/image'
+
+export const metadata: Metadata = {
+  title: 'О нас',
+  description:
+    'Подробная информация о нашей церкви. Кто мы, для чего существуем и во что верим.',
+}
 
 export default function AboutPage() {
   return (

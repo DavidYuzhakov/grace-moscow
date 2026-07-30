@@ -8,6 +8,13 @@ import {
 } from '@tabler/icons-react'
 import Image from 'next/image'
 import { ContactsBlock } from '@/components/blocks/ContactsBlock'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Контаксты',
+  description:
+    'Расписание наших служений. Где мы находимся. Способы связи с нами и наши соц.сети.',
+}
 
 export default function ContactsPage() {
   return (

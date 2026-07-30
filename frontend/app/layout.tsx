@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Great_Vibes } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -9,15 +9,31 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-const greatVibes = Great_Vibes({
-  subsets: ['cyrillic', 'latin'],
-  variable: '--font-greatVibes',
-  weight: '400',
-})
-
 export const metadata: Metadata = {
-  title: 'Благодать север',
-  description: 'Церковь благодать москва север',
+  title: {
+    default: 'Благодать север',
+    template: '%s | Церковь Благодать',
+  },
+  description:
+    'Христианская церковь Благодать на севере Москвы. Благодать - это церковь миссии "Благодать" на севере Москвы. Расписание служений, новости церкви, график дежурств.',
+  keywords: [
+    'цекровь москва',
+    'церковь благодать',
+    'благодать север',
+    'христианская церковь',
+    'протестантская церковь',
+    'церковь на севере москвы',
+    'благодать',
+  ],
+  openGraph: {
+    title: 'Церковь Благодать | Москва, Север',
+    description:
+      'Добро пожаловать на сайт церкви Благодать. Узнайте о нашей церкви, расписание служений и актуальные новости.',
+    siteName: 'Церковь Благодать',
+    url: 'https://grace.moscow',
+    locale: 'ru_RU',
+    type: 'website',
+  },
 }
 
 export const viewport = {
@@ -33,10 +49,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${greatVibes.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <Header />
         <main className="flex-1 container pt-24 pb-20">{children}</main>
