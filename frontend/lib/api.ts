@@ -29,11 +29,6 @@ const request = async <T>(
     : process.env.NEXT_PUBLIC_STRAPI_API_URL
 
   let url = `${baseUrl}/api${endpoint}`
-  console.log({
-    isServer,
-    baseUrl,
-    url,
-  })
 
   const headers = {
     'Content-Type': 'application/json',
