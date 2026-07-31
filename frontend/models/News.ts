@@ -6,7 +6,7 @@ export interface News {
   description: string
   img: { url: string }
   title: string
-  phone: string
-  telegramLink: string
+  phone?: string
+  telegramLink?: string
   slug: string
 }

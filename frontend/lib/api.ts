@@ -25,10 +25,16 @@ const request = async <T>(
   const { params, headers: optionHeaders, ...fetchOptions } = options
   const isServer = typeof window === 'undefined'
   const baseUrl = isServer
-    ? 'http://strapi:1337'
+    ? process.env.STRAPI_INTERNAL_URL || 'http://localhost:1337'
     : process.env.NEXT_PUBLIC_STRAPI_API_URL
 
   let url = `${baseUrl}/api${endpoint}`
+  console.log({
+    isServer,
+    baseUrl,
+    url,
+  })
+
   const headers = {
     'Content-Type': 'application/json',
     ...optionHeaders,

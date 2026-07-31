@@ -34,5 +34,5 @@ RUN chown -R node:node /opt/app
 USER node
 EXPOSE 1337
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost:1337/_health || exit 1
+CMD wget --quiet --tries=1 --spider http://127.0.0.1:1337/_health || exit 1
 CMD ["npm", "run", "start"]

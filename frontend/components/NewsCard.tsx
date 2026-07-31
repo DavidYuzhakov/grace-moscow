@@ -21,7 +21,7 @@ export default function NewsCard({
     <Link href={`/news/${slug}`}>
       <article className="relativef flex flex-col bg-background w-full h-full rounded-3xl border-gray-200 duration-200 hover:drop-shadow-[0_0px_10px_rgba(0,0,0,0.1)] hover:-translate-y-2 self-auto md:drop-shadow-none drop-shadow-[0_0px_10px_rgba(0,0,0,0.1)] active:-translate-y-2">
         <Image
-          src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${img.url}`}
+          src={`${process.env.NEXT}${img.url}`}
           alt={title}
           width={0}
           height={0}

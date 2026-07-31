@@ -7,6 +7,8 @@ import { ErrorState } from '@/components/ErrorState'
 import { ContactsBlock } from '@/components/blocks/ContactsBlock'
 import { HeroBlock } from '@/components/blocks/HeroBlock'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const result = await newsService.getAllNews()
   const news = result.ok ? result.data : []
