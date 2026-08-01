@@ -12,8 +12,10 @@ services:
       NODE_ENV: production
     volumes:
       - strapi-uploads:/opt/app/public/uploads
-    ports:
-      - 127.0.0.1:1337:1337
+    # ports:
+    #   - 127.0.0.1:1337:1337
+    expose:
+      - 3000
     networks:
       - strapi
     depends_on:
@@ -38,6 +40,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   frontend:
     container_name: frontend
     build:
@@ -47,13 +50,26 @@ services:
         - NEXT_PUBLIC_YANDEX_API_KEY=${NEXT_PUBLIC_YANDEX_API_KEY}
     env_file:
       - ./frontend/.env
-    ports:
-      - 3000:3000
+    expose:
+      - 3000
     depends_on:
       strapi:
         condition: service_healthy
     networks:
       - strapi
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      # - ./certbot/conf:/etc/letsencrypt
+      # - ./certbot/www:/var/www/certbot
 
 volumes:
   strapi-data:
