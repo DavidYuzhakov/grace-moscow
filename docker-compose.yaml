@@ -43,6 +43,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_YANDEX_API_KEY=${NEXT_PUBLIC_YANDEX_API_KEY}
     env_file:
       - ./frontend/.env
     ports:

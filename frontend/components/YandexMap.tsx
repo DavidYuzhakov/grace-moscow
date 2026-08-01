@@ -14,25 +14,21 @@ export function YandexMap() {
 
   React.useEffect(() => {
     if (!scriptLoaded || typeof ymaps3 === 'undefined') return
-    // let isMounted = true
 
     Promise.all([ymaps3.import('@yandex/ymaps3-reactify'), ymaps3.ready])
       .then(([{ reactify }]) => {
-        // if (isMounted) {
         setReactifiedApi(reactify.bindTo(React, ReactDOM).module(ymaps3))
-        // }
       })
       .catch((err) => console.error('Ошибка инициализации Яндекс.Карт:', err))
-
-    // return () => {
-    //   isMounted = false
-    // }
   }, [scriptLoaded])
 
   return (
     <>
       <Script
         src={`https://api-maps.yandex.ru/v3/?apikey=${process.env.NEXT_PUBLIC_YANDEX_API_KEY}&lang=ru_RU`}
+        onError={(e) => {
+          console.log('YANDEX SCRIPT ERROR', e)
+        }}
         onReady={() => setScriptLoaded(true)}
       />
       {reactifiedApi ? (
