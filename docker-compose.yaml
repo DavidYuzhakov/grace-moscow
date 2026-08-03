@@ -15,7 +15,7 @@ services:
     # ports:
     #   - 127.0.0.1:1337:1337
     expose:
-      - 3000
+      - 1337
     networks:
       - strapi
     depends_on:
@@ -70,6 +70,11 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       # - ./certbot/conf:/etc/letsencrypt
       # - ./certbot/www:/var/www/certbot
+    depends_on:
+      - frontend
+      - strapi
+    networks:
+      - strapi
 
 volumes:
   strapi-data:
