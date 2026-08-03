@@ -14,6 +14,7 @@ COPY . .
 # Without this, the admin panel defaults to localhost:1337.
 # ARG STRAPI_ADMIN_BACKEND_URL
 # ENV STRAPI_ADMIN_BACKEND_URL=${STRAPI_ADMIN_BACKEND_URL}
+ENV NODE_OPTIONS="--max-old-space-size=2048"
 ENV NODE_ENV=production
 RUN npm run build
 
