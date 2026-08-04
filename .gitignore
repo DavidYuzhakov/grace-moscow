@@ -13,3 +13,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+certbot/conf/*
+certbot/www/*
+
+!certbot/conf/.gitkeep
+!certbot/www/.gitkeep
