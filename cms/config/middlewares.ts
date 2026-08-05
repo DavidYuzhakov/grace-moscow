@@ -1,11 +1,6 @@
 import type { Core } from '@strapi/strapi'
 
 const config: Core.Config.Middlewares = [
-  {
-    name: 'global::proxy-debug',
-    config: {},
-  },
-
   'strapi::logger',
   'strapi::errors',
   'strapi::security',
