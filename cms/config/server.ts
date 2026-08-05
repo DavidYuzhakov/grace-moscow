@@ -8,11 +8,11 @@ const config = ({
 
   url: env('URL', 'http://localhost:1337'),
 
-  proxy: true,
-
   app: {
     keys: env.array('APP_KEYS'),
   },
+
+  proxy: true,
 })
 
 export default config
