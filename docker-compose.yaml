@@ -80,6 +80,8 @@ services:
   certbot:
     image: certbot/certbot
     container_name: certbot
+    restart: always
+    entrypoint: /bin/sh
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
