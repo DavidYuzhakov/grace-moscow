@@ -18,8 +18,8 @@ ENV NEXT_PUBLIC_YANDEX_API_KEY=$NEXT_PUBLIC_YANDEX_API_KEY
 ENV NODE_ENV=production
 
 RUN echo "=== BUILD ENV ==="
-RUN env | sort | grep NEXT_PUBLIC
-RUN env | sort | grep STRAPI
+RUN env | sort | grep NEXT_PUBLIC || true
+RUN env | sort | grep STRAPI || true
 RUN npm run build
 
 # Stage 2
