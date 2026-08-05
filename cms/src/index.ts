@@ -3,6 +3,7 @@ import type { Core } from '@strapi/strapi'
 export default {
   register({ strapi }: { strapi: Core.Strapi }) {
     // Переопределяем Google провайдер
+    strapi.server.app.proxy = true
     strapi
       .plugin('users-permissions')
       .service('providers-registry')

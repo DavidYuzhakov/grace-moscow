@@ -13,12 +13,7 @@ const config: Core.Config.Middlewares = [
   'strapi::poweredBy',
   'strapi::query',
   'strapi::body',
-  {
-    name: 'strapi::session',
-    config: {
-      secure: true,
-    },
-  },
+  'strapi::session',
   'strapi::favicon',
   'strapi::public',
 ]
