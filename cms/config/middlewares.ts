@@ -1,6 +1,11 @@
-import type { Core } from '@strapi/strapi';
+import type { Core } from '@strapi/strapi'
 
 const config: Core.Config.Middlewares = [
+  {
+    name: 'global::proxy-debug',
+    config: {},
+  },
+
   'strapi::logger',
   'strapi::errors',
   'strapi::security',
@@ -11,6 +16,6 @@ const config: Core.Config.Middlewares = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
-];
+]
 
-export default config;
+export default config
