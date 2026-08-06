@@ -31,6 +31,8 @@ export default async function NewsDetailsPage({ params }: NewsDetailsProps) {
     notFound()
   }
 
+  console.log(process.env.STRAPI_INTERNAL_URL)
+
   const { title, img, description, phone, telegramLink, address, date, time } =
     result.data
 
@@ -38,7 +40,7 @@ export default async function NewsDetailsPage({ params }: NewsDetailsProps) {
     <article>
       <div className="lg:flex">
         <Image
-          src={`${process.env.STRAPI_INTERNAL_URL}${img.url}`}
+          src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${img.url}`}
           alt={title}
           width={0}
           height={0}
