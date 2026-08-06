@@ -14,6 +14,8 @@ COPY . .
 
 ENV NODE_ENV=production
 
+RUN npm run build
+
 # Stage 2
 FROM node:${NODE_VERSION} AS runner
 
