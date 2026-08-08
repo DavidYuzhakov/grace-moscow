@@ -4,13 +4,10 @@ import Image from 'next/image'
 import { loginAction } from '@/actions/auth'
 import { Button } from '@/components/Button'
 import { useActionState } from 'react'
-
 export default function LoginPage() {
   const [state, formAction, pending] = useActionState(loginAction, {
     ok: false,
   })
-
-  console.log(process.env.NEXT_PUBLIC_STRAPI_API_URL)
 
   return (
     <section className="text-center max-w-120 mx-auto space-y-5 md:pt-0 pt-4">

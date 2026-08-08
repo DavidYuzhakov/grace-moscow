@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         hostname: 'admin.grace.moscow',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        pathname: '/uploads/**',
+      },
     ],
   },
 }
