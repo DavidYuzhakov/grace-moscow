@@ -31,8 +31,6 @@ export default async function NewsDetailsPage({ params }: NewsDetailsProps) {
     notFound()
   }
 
-  console.log(process.env.STRAPI_INTERNAL_URL)
-
   const { title, img, description, phone, telegramLink, address, date, time } =
     result.data
 
