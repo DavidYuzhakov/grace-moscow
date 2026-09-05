@@ -20,7 +20,7 @@ export default function RegisterPage() {
           Создание аккаунта предназначено только для служителей церкви.
         </p>
       </div>
-      <Button
+      {/* <Button
         variant="outline"
         className="rounded-lg w-full hover:bg-foreground/5 px-2 flex items-center justify-center gap-2 md:text-base text-sm"
         onClick={() =>
@@ -31,7 +31,7 @@ export default function RegisterPage() {
       >
         <Image width={25} height={25} src={'/vk-blue.svg'} alt="ВКонтакте" />
         Зарегистрироваться через VK
-      </Button>
+      </Button> */}
       <div className="flex gap-3 items-center">
         <div className="divider"></div>
         <span className="text-black/50">или</span>

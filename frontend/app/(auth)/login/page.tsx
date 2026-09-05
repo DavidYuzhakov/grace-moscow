@@ -17,7 +17,7 @@ export default function LoginPage() {
           Введи ваши персональные данные для входа в аккаунт.
         </p>
       </div>
-      <Button
+      {/* <Button
         variant="outline"
         className="rounded-lg w-full hover:bg-foreground/5 flex items-center justify-center gap-2"
         onClick={() =>
@@ -34,7 +34,7 @@ export default function LoginPage() {
           alt="ВКонтакте"
         />
         Войти через VK
-      </Button>
+      </Button> */}
       <div className="flex gap-3 items-center">
         <div className="divider"></div>
         <span className="text-black/50">или</span>
