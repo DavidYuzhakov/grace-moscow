@@ -22,7 +22,6 @@ export default async function HomePage() {
           autoPlay
           muted
           playsInline
-          controls={false}
           className="absolute inset-0 -z-1 h-170 object-cover md:object-[0_65%] object-[40%_0] w-full brightness-75"
         />
         <HeroBlock />

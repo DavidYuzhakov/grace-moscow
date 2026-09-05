@@ -35,11 +35,6 @@ export default function LoginPage() {
         />
         Войти через VK
       </Button> */}
-      <div className="flex gap-3 items-center">
-        <div className="divider"></div>
-        <span className="text-black/50">или</span>
-        <div className="divider"></div>
-      </div>
       <form action={formAction} className="space-y-5">
         {state.error && <p className="text-red-500 text-sm">{state.error}</p>}
         <label className="flex flex-col items-start gap-1">

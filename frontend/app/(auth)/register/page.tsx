@@ -32,11 +32,6 @@ export default function RegisterPage() {
         <Image width={25} height={25} src={'/vk-blue.svg'} alt="ВКонтакте" />
         Зарегистрироваться через VK
       </Button> */}
-      <div className="flex gap-3 items-center">
-        <div className="divider"></div>
-        <span className="text-black/50">или</span>
-        <div className="divider"></div>
-      </div>
       <form action={formAction} className="space-y-5">
         {!pending && state.error && (
           <p className="text-red-500 text-sm">{state.error}</p>
