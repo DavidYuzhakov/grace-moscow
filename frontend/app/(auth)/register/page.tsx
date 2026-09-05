@@ -19,24 +19,12 @@ export default function RegisterPage() {
         <p className="text-black/50 text-sm">
           Создание аккаунта предназначено только для служителей церкви.
         </p>
-      </div>
-      <Button
-        variant="outline"
-        className="rounded-lg w-full hover:bg-foreground/5 px-2"
-      >
-        <Link
-          href={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/connect/google`}
-          className="flex items-center justify-center gap-2 md:text-base text-sm"
-        >
-          <Image width={25} height={25} src={'/google.png'} alt="Google" />{' '}
-          Зарегистрироваться через Google
-        </Link>
-      </Button>
-      <div className="flex gap-3 items-center">
+      </div>      
+      {/* <div className="flex gap-3 items-center">
         <div className="divider"></div>
         <span className="text-black/50">или</span>
         <div className="divider"></div>
-      </div>
+      </div> */}
       <form action={formAction} className="space-y-5">
         {!pending && state.error && (
           <p className="text-red-500 text-sm">{state.error}</p>
