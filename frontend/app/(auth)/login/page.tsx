@@ -17,6 +17,29 @@ export default function LoginPage() {
           Введи ваши персональные данные для входа в аккаунт.
         </p>
       </div>
+      <Button
+        variant="outline"
+        className="rounded-lg w-full hover:bg-foreground/5 flex items-center justify-center gap-2"
+        onClick={() =>
+          window.location.assign(
+            `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/connect/vk`,
+          )
+        }
+      >
+        <Image
+          width={25}
+          height={25}
+          src={'/vk-blue.svg'}
+          className="rounded-md bg-primary"
+          alt="ВКонтакте"
+        />
+        Войти через VK
+      </Button>
+      <div className="flex gap-3 items-center">
+        <div className="divider"></div>
+        <span className="text-black/50">или</span>
+        <div className="divider"></div>
+      </div>
       <form action={formAction} className="space-y-5">
         {state.error && <p className="text-red-500 text-sm">{state.error}</p>}
         <label className="flex flex-col items-start gap-1">
