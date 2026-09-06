@@ -454,7 +454,7 @@ export interface ApiDutyRoleDutyRole extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    duty: Schema.Attribute.Relation<'oneToOne', 'api::duty.duty'>;
+    duties: Schema.Attribute.Relation<'oneToMany', 'api::duty.duty'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -464,7 +464,6 @@ export interface ApiDutyRoleDutyRole extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     order: Schema.Attribute.Integer & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    time: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -486,7 +485,7 @@ export interface ApiDutyDuty extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     duty_role: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'api::duty-role.duty-role'
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

@@ -19,12 +19,9 @@
       "type": "integer",
       "required": true
     },
-    "time": {
-      "type": "string"
-    },
-    "duty": {
+    "duties": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::duty.duty",
       "mappedBy": "duty_role"
     }

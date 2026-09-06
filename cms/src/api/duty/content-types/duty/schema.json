@@ -16,9 +16,9 @@
     },
     "duty_role": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::duty-role.duty-role",
-      "inversedBy": "duty"
+      "inversedBy": "duties"
     },
     "sunday": {
       "type": "relation",
