@@ -53,7 +53,7 @@ export function Header() {
       ...(user?.userStatus === 'принято'
         ? [
             {
-              name: 'Дежурство',
+              name: 'Календарь',
               location: '/schedule',
             },
           ]

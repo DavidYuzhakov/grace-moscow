@@ -1,122 +1,68 @@
 'use client'
 
-import {
-  IconArrowsHorizontal,
-  IconCalendarWeek,
-  IconChevronLeft,
-  IconChevronRight,
-} from '@tabler/icons-react'
+import type { DutyRole, Sunday } from '@/models/Sunday'
+import { IconCalendarWeek } from '@tabler/icons-react'
 import { useState } from 'react'
 
-type Ministry = {
-  id: string
-  name: string
+type ScheduleBoardProps = {
+  sundays: Sunday[]
+  dutyRoles: DutyRole[]
 }
 
-type ScheduleDay = {
-  id: string
-  fullDate: string
-  assignments: Record<string, string[]>
+const parseDate = (date: string) => {
+  const [year, month, day] = date.split('-').map(Number)
+  return new Date(Date.UTC(year, month - 1, day))
 }
 
-const ministries: Ministry[] = [
-  { id: 'announcement', name: 'Анонс «десятины», сбор и молитва' },
-  { id: 'children-blessing', name: 'Благословение детей' },
-  {
-    id: 'offering-blessing',
-    name: 'Благословение пожертвований и десятин',
-  },
-  { id: 'worship-leader', name: 'Ведущий прославления' },
-  { id: 'welcome', name: 'Встреча в фойе новых людей' },
-  { id: 'dining-room', name: 'Дежурный в столовой' },
-  { id: 'children-ministry', name: 'Детское служение' },
-  { id: 'asv-prayer', name: 'Молитва представителя и АСВ' },
-  { id: 'needs-prayer', name: 'Молящийся за нужды' },
-  { id: 'zero-worship', name: 'Нулевая хвала' },
-]
+const formatDate = (date: string, options: Intl.DateTimeFormatOptions) =>
+  new Intl.DateTimeFormat('ru-RU', {
+    timeZone: 'UTC',
+    ...options,
+  }).format(parseDate(date))
 
-const scheduleDays: ScheduleDay[] = [
-  {
-    id: '2026-09-06',
-    fullDate: 'Воскресенье, 6 сентября',
-    assignments: {
-      announcement: ['Иванов Иван'],
-      'children-blessing': ['Петров Василий'],
-      'offering-blessing': ['Сидоров Николай'],
-      'worship-leader': ['Воронцова Елена'],
-      welcome: ['Алексеева Мария'],
-      'dining-room': ['Петров Василий'],
-      'children-ministry': ['Иванов Иван'],
-      'asv-prayer': ['Воронцова Елена'],
-      'needs-prayer': ['Сидоров Николай'],
-      'zero-worship': ['Иванов Иван'],
-    },
-  },
-  {
-    id: '2026-09-13',
-    fullDate: 'Воскресенье, 13 сентября',
-    assignments: {
-      announcement: ['Петров Василий'],
-      'children-blessing': ['Иванов Иван'],
-      'offering-blessing': ['Воронцова Елена'],
-      'worship-leader': ['Сидоров Николай'],
-      welcome: ['Петров Василий'],
-      'dining-room': ['Алексеева Мария'],
-      'children-ministry': ['Воронцова Елена'],
-      'asv-prayer': ['Иванов Иван'],
-      'needs-prayer': ['Петров Василий'],
-      'zero-worship': ['Сидоров Николай'],
-    },
-  },
-  {
-    id: '2026-09-20',
-    fullDate: 'Воскресенье, 20 сентября',
-    assignments: {
-      announcement: ['Алексеева Мария'],
-      'children-blessing': ['Сидоров Николай'],
-      'offering-blessing': ['Иванов Иван'],
-      'worship-leader': ['Петров Василий'],
-      welcome: ['Иванов Иван'],
-      'dining-room': ['Воронцова Елена'],
-      'children-ministry': ['Петров Василий'],
-      'asv-prayer': ['Сидоров Николай'],
-      'needs-prayer': ['Алексеева Мария'],
-      'zero-worship': ['Воронцова Елена'],
-    },
-  },
-  {
-    id: '2026-09-27',
-    fullDate: 'Воскресенье, 27 сентября',
-    assignments: {
-      announcement: ['Сидоров Николай'],
-      'children-blessing': ['Алексеева Мария'],
-      'offering-blessing': ['Петров Василий'],
-      'worship-leader': ['Иванов Иван'],
-      welcome: ['Воронцова Елена'],
-      'dining-room': ['Сидоров Николай'],
-      'children-ministry': ['Алексеева Мария'],
-      'asv-prayer': ['Петров Василий'],
-      'needs-prayer': ['Иванов Иван'],
-      'zero-worship': ['Петров Василий'],
-    },
-  },
-]
+const getRoleKey = (role: DutyRole) => role.documentId || String(role.id)
+
+const getPeople = (sunday: Sunday, role: DutyRole) =>
+  sunday.duties
+    .filter((duty) => {
+      if (!duty.duty_role) return false
+      return getRoleKey(duty.duty_role) === getRoleKey(role)
+    })
+    .map((duty) => duty.person?.trim())
+    .filter((person): person is string => Boolean(person))
 
 function People({ names }: { names: string[] | undefined }) {
   if (!names?.length) {
     return <span className="text-slate-400">Не назначен</span>
   }
 
-  return names.map((name) => (
-    <span className="block" key={name}>
+  return names.map((name, index) => (
+    <span className="block" key={`${name}-${index}`}>
       {name}
     </span>
   ))
 }
 
-export function ScheduleBoard() {
+export function ScheduleBoard({ sundays, dutyRoles }: ScheduleBoardProps) {
   const [selectedDayIndex, setSelectedDayIndex] = useState(0)
-  const selectedDay = scheduleDays[selectedDayIndex]
+  const scheduleDays = [...sundays].sort((a, b) => a.date.localeCompare(b.date))
+  const ministries = [...dutyRoles].sort((a, b) => a.order - b.order)
+
+  if (!scheduleDays.length || !ministries.length) {
+    return (
+      <div className="text-center">
+        <span className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+          <IconCalendarWeek size={28} stroke={1.7} />
+        </span>
+        <h2 className="mt-3 text-lg font-bold text-slate-900">
+          Расписание пока не опубликовано
+        </h2>
+      </div>
+    )
+  }
+
+  const selectedDay =
+    scheduleDays[Math.min(selectedDayIndex, scheduleDays.length - 1)]
 
   return (
     <div className="overflow-hidden rounded-3xl bg-white shadow-md">
@@ -125,7 +71,7 @@ export function ScheduleBoard() {
           <div className="flex justify-between items-center gap-2">
             <h2 className="font-bold text-xl">Расписание</h2>
             <div className="font-medium bg-gray-100 rounded-full text-gray-600 px-3 py-1 text-sm">
-              {new Date(selectedDay.id).toLocaleDateString('ru-RU', {
+              {formatDate(selectedDay.date, {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
@@ -148,7 +94,7 @@ export function ScheduleBoard() {
                         ? 'border-primary bg-primary text-white shadow-sm'
                         : 'border-slate-200 bg-white text-slate-500 active:bg-slate-50'
                     }`}
-                    key={day.id}
+                    key={day.documentId}
                     onClick={() => setSelectedDayIndex(index)}
                     role="tab"
                     aria-selected={isSelected}
@@ -157,7 +103,7 @@ export function ScheduleBoard() {
                     <span
                       className={`text-md font-bold uppercase tracking-wider ${isSelected ? 'text-white' : 'text-slate-400'}`}
                     >
-                      {new Date(day.id).toLocaleDateString('ru-RU', {
+                      {formatDate(day.date, {
                         day: 'numeric',
                         month: 'numeric',
                       })}
@@ -172,13 +118,13 @@ export function ScheduleBoard() {
           {ministries.map((ministry) => (
             <div
               className="grid min-h-18 grid-cols-[minmax(0,1fr)_minmax(105px,42%)] items-center gap-4 py-3"
-              key={ministry.id}
+              key={ministry.documentId}
             >
               <p className="text-sm font-medium leading-snug text-slate-800">
                 {ministry.name}
               </p>
               <div className="text-right text-sm font-semibold leading-snug text-primary">
-                <People names={selectedDay.assignments[ministry.id]} />
+                <People names={getPeople(selectedDay, ministry)} />
               </div>
             </div>
           ))}
@@ -199,11 +145,11 @@ export function ScheduleBoard() {
                 {scheduleDays.map((day) => (
                   <th
                     className={`border-b border-gray-200 px-5 bg-white`}
-                    key={day.id}
+                    key={day.documentId}
                     scope="col"
                   >
                     <span className="font-semibold">
-                      {new Date(day.id).toLocaleDateString('ru-RU', {
+                      {formatDate(day.date, {
                         day: 'numeric',
                         month: 'long',
                       })}
@@ -214,18 +160,19 @@ export function ScheduleBoard() {
             </thead>
             <tbody>
               {ministries.map((ministry) => (
-                <tr className="group" key={ministry.id}>
+                <tr className="group" key={ministry.documentId}>
                   <th
                     className="sticky left-0 z-1 border-b border-r border-gray-200 px-6 py-5 text-sm font-semibold leading-snug transition-colors bg-gray-50  group-hover:bg-secondary/15"
                     scope="row"
                   >
                     {ministry.name}
                   </th>
-                  {scheduleDays.map((day, index) => (
+                  {scheduleDays.map((day) => (
                     <td
                       className={`border-b border-gray-100 px-5 py-5 text-sm font-medium leading-snug text-slate-700 transition-colors last:border-r-0 group-hover:bg-secondary/15 bg-white`}
+                      key={`${day.documentId}-${ministry.documentId}`}
                     >
-                      <People names={day.assignments[ministry.id]} />
+                      <People names={getPeople(day, ministry)} />
                     </td>
                   ))}
                 </tr>
