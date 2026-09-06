@@ -33,7 +33,7 @@ const getPeople = (sunday: Sunday, role: DutyRole) =>
 
 function People({ names }: { names: string[] | undefined }) {
   if (!names?.length) {
-    return <span className="text-slate-400">Не назначен</span>
+    return <span className="text-slate-400">Не назначено</span>
   }
 
   return names.map((name, index) => (
