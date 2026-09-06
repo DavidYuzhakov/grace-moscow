@@ -1,8 +1,5 @@
-import { ErrorState } from '@/components/ErrorState'
-import { Tag } from '@/components/Tag'
-import { sundayService } from '@/services/sunday.service'
+import { ScheduleBoard } from '@/components/schedule/ScheduleBoard'
 import { userService } from '@/services/user.service'
-import { IconClock } from '@tabler/icons-react'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -25,15 +22,13 @@ export default async function SchedulePage() {
     redirect('/forbidden')
   }
 
-  const sunday = await sundayService.getDay()
-
-  if (!sunday.ok) {
-    return <ErrorState error={sunday.error} />
-  }
-
   return (
-    <div className="space-y-5 bg-white shadow-sm p-5 rounded-lg">
-      
-    </div>
+    <section className="space-y-5">
+      <h1 className="font-bold md:mb-5 mb-3 md:block hidden text-3xl">
+        Расписание служений
+      </h1>
+
+      <ScheduleBoard />
+    </section>
   )
 }
