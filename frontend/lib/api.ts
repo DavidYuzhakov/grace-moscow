@@ -41,6 +41,7 @@ const request = async <T>(
   }
 
   const response = await fetch(url, {
+    cache: 'no-store',
     headers,
     ...fetchOptions,
   })

@@ -17,7 +17,7 @@ export default function AboutPage() {
           width={1000000}
           height={1000000}
           className="absolute lg:h-150 md:h-100 h-80 -z-1 inset-0 w-full object-cover md:object-[0_60%] object-center brightness-75"
-          src={'/about2.jpg'}
+          src={'/about.jpg'}
           alt="церковь"
         />
         <h1 className="h-full flex justify-end flex-col font-bold text-white lg:text-8xl md:text-7xl text-5xl">

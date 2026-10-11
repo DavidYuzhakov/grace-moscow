@@ -11,7 +11,7 @@ import { ContactsBlock } from '@/components/blocks/ContactsBlock'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Контаксты',
+  title: 'Контакты',
   description:
     'Расписание наших служений. Где мы находимся. Способы связи с нами и наши соц.сети.',
 }
