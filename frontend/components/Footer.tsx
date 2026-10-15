@@ -1,6 +1,7 @@
 import {
   IconBrandWhatsappFilled,
   IconBrandYoutubeFilled,
+  IconMailFilled,
 } from '@tabler/icons-react'
 import Image from 'next/image'
 
@@ -67,10 +68,10 @@ export function Footer() {
                 />
               </a>
               <a
-                href="https://wa.me/9165998103"
+                href="mailto:grace.church.msk@yandex.ru"
                 className="flex items-center gap-1 bg-secondary/50 p-3 rounded-full hover:rotate-15 duration-200"
               >
-                <IconBrandWhatsappFilled size={25} />
+                <IconMailFilled size={25} />
               </a>
             </div>
           </div>

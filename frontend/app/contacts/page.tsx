@@ -73,12 +73,14 @@ export default function ContactsPage() {
           <div className="flex items-center gap-3 flex-wrap">
             <a
               href="https://www.youtube.com/@grace.church.moscow"
+              target="_blank"
               className="flex items-center gap-1 bg-primary p-3 rounded-full hover:rotate-15 duration-200 text-white"
             >
               <IconBrandYoutubeFilled size={25} />
             </a>
             <a
               href="https://vkvideo.ru/@grace.moscow"
+              target="_blank"
               className="flex items-center gap-1 p-3 rounded-full bg-primary hover:rotate-15 duration-200"
             >
               <Image
@@ -91,6 +93,7 @@ export default function ContactsPage() {
             </a>
             <a
               href="https://vk.com/grace.moscow"
+              target="_blank"
               className="flex items-center gap-1 p-3 rounded-full bg-primary hover:rotate-15 duration-200"
             >
               <Image
@@ -103,6 +106,7 @@ export default function ContactsPage() {
             </a>
             <a
               href="https://t.me/grace_church_msk"
+              target="_blank"
               className="flex items-center gap-1 p-3 rounded-full bg-primary hover:rotate-15 duration-200"
             >
               <Image
@@ -112,12 +116,6 @@ export default function ContactsPage() {
                 src={'/telegram.svg'}
                 alt="Telegram"
               />
-            </a>
-            <a
-              href="https://wa.me/9165998103"
-              className="flex items-center gap-1 bg-primary p-3 rounded-full hover:rotate-15 duration-200 text-white"
-            >
-              <IconBrandWhatsappFilled size={25} />
             </a>
           </div>
         </div>
