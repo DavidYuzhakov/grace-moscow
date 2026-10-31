@@ -16,7 +16,7 @@ export default async function HomePage() {
       <section className="h-170">
         <div className="pointer-events-none absolute inset-0 -z-1 h-170 w-full">
           <video
-            src={'/intro.mp4'}
+            src={'/intro-optimized.mp4'}
             loop
             autoPlay
             muted
@@ -45,14 +45,24 @@ export default async function HomePage() {
         </div>
         <HeroBlock />
       </section>
-      <section className="md:pb-20 pb-10 md:space-y-16 space-y-10">
+      <section className="md:pb-16 pb-10 pt-8 relative">
         <AboutBlock />
-        <Link href={'/about'} className="flex">
-          <Button className="mx-auto">Подробнее о нас</Button>
-        </Link>
+        <div className="pt-5 flex justify-center">
+          <Link
+            href={'/about'}
+            className="text-center ml-auto border-foreground/10 border px-3 py-2 rounded-full text-sm text-foreground/75 duration-200 hover:border-primary hover:text-primary"
+          >
+            Подробнее о нас
+          </Link>
+        </div>
       </section>
       <section className="space-y-6 md:pt-0 pt-5">
-        <h2 className="font-medium md:text-4xl text-3xl">Новости</h2>
+        <div>
+          <h2 className="tracking-wider md:text-5xl text-3xl font-extrabold text-primary text-center uppercase">
+            Новости
+          </h2>
+          <div className="h-0.75 w-16 rounded-full bg-primary mx-auto md:mt-5 mt-3" />
+        </div>
         {!result.ok ? (
           <ErrorState error={result.error} />
         ) : (
@@ -64,9 +74,14 @@ export default async function HomePage() {
               ))}
             </div>
             {news.length > 3 && (
-              <Link href={'/news'} className="flex">
-                <Button className="mx-auto">Больше новостей</Button>
-              </Link>
+              <div className="flex justify-center">
+                <Link
+                  href={'/news'}
+                  className="text-center border-foreground/10 border px-3 py-2 rounded-full text-sm text-foreground/75 duration-200 hover:border-primary hover:text-primary"
+                >
+                  Больше новостей
+                </Link>
+              </div>
             )}
           </>
         )}
