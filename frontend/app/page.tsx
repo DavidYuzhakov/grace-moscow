@@ -1,6 +1,5 @@
 import NewsCard from '@/components/NewsCard'
 import Link from 'next/link'
-import { Button } from '@/components/Button'
 import { AboutBlock } from '@/components/blocks/AboutBlock'
 import { newsService } from '@/services/news.service'
 import { ErrorState } from '@/components/ErrorState'
@@ -47,7 +46,7 @@ export default async function HomePage() {
       </section>
       <section className="md:pb-16 pb-10 pt-8 relative">
         <AboutBlock />
-        <div className="pt-5 flex justify-center">
+        <div className="md:mt-5 mt-8 flex justify-center">
           <Link
             href={'/about'}
             className="text-center ml-auto border-foreground/10 border px-3 py-2 rounded-full text-sm text-foreground/75 duration-200 hover:border-primary hover:text-primary"

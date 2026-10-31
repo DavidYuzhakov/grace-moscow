@@ -48,15 +48,15 @@ export default async function NewsDetailsPage({ params }: NewsDetailsProps) {
         <div className="space-y-2 md:p-4 py-4">
           <div className="flex items-center md:gap-3 gap-2 flex-wrap">
             <Tag>
-              <IconCalendarEvent className="md:size-6 size-5" />
+              <IconCalendarEvent className="size-5" />
               {date}
             </Tag>
             <Tag>
-              <IconClock className="md:size-6 size-5" />
+              <IconClock className="size-5" />
               {time.slice(0, 5)}
             </Tag>
             <Tag>
-              <IconMapPin className="md:size-6 size-5" />
+              <IconMapPin className="size-5" />
               {address}
             </Tag>
           </div>
